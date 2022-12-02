@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash_screen"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/beige_light"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-2dp">
+
+    <TextView
+        android:id="@+id/login_companyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:fontFamily="@font/pacifico"
+        android:text="@string/company_name"
+        android:textColor="@color/dark_red"
+        android:textSize="72sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/login_companyDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/company_desc"
+        app:layout_constraintEnd_toEndOf="@+id/login_companyName"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@+id/login_companyName"
+        app:layout_constraintTop_toBottomOf="@+id/login_companyName" />
+
+    <EditText
+        android:id="@+id/login_editEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:hint="@string/login_email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/login_companyDesc"
+        app:layout_constraintStart_toStartOf="@+id/login_companyDesc"
+        app:layout_constraintTop_toBottomOf="@+id/login_companyDesc" />
+
+    <EditText
+        android:id="@+id/login_editPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/login_password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/login_editEmail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/login_editEmail"
+        app:layout_constraintTop_toBottomOf="@+id/login_editEmail" />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:background="@color/dark_red"
+        android:text="@string/signup"
+        android:textColor="@color/beige_light"
+        app:layout_constraintEnd_toEndOf="@+id/login_editPassword"
+        app:layout_constraintStart_toStartOf="@+id/login_editPassword"
+        app:layout_constraintTop_toBottomOf="@+id/login_editPassword"
+        tools:text="@string/signup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
