@@ -42,6 +42,7 @@
         android:ems="10"
         android:hint="@string/login_email"
         android:inputType="textEmailAddress"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/login_companyDesc"
         app:layout_constraintStart_toStartOf="@+id/login_companyDesc"
         app:layout_constraintTop_toBottomOf="@+id/login_companyDesc" />
@@ -53,6 +54,7 @@
         android:ems="10"
         android:hint="@string/login_password"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/login_editEmail"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/login_editEmail"
@@ -63,12 +65,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
-        android:background="@color/dark_red"
+        android:background="#733939"
         android:text="@string/signup"
-        android:textColor="@color/beige_light"
+        android:textColor="@color/dark_red"
         app:layout_constraintEnd_toEndOf="@+id/login_editPassword"
         app:layout_constraintStart_toStartOf="@+id/login_editPassword"
         app:layout_constraintTop_toBottomOf="@+id/login_editPassword"
+        tools:ignore="TextContrastCheck"
         tools:text="@string/signup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,4 +13,48 @@
     <string name="login_email">Enter your email</string>
     <string name="login_password">Enter your password</string>
     <string name="signup">Sign up</string>
+    <string-array name="restaurant_names">
+        <item>Abo Anas</item>
+        <item>El Dahan</item>
+        <item>More IN</item>
+        <item>Deep Shawerma</item>
+        <item>Ibn El Sham</item>
+        <item>Broccar</item>
+        <item>McDonalds</item>
+        <item>Cinnabon</item>
+        <item>Krispy Cream</item>
+        <item>Coffee Lab</item>
+        <item>Abo Ammar</item>
+        <item>Abo Mazen</item>
+        <item>Bab Sharqi</item>
+        <item>Ahsn Nas</item>
+        <item>Bazooka</item>
+        <item>Heart Attack</item>
+        <item>Pasta2Go</item>
+        <item>Kingdom Pizza</item>
+        <item>Double Ds</item>
+        <item>City Crepe</item>
+    </string-array>
+    <string-array name="restaurant_categories">
+        <item>Shawerma</item>
+        <item>Egyptian</item>
+        <item>Western</item>
+        <item>Shawerma</item>
+        <item>Shawerma</item>
+        <item>Shawerma</item>
+        <item>Western</item>
+        <item>Desserts</item>
+        <item>Desserts</item>
+        <item>Coffee</item>
+        <item>Shawerma</item>
+        <item>Shawerma</item>
+        <item>Shawerma</item>
+        <item>Shawerma</item>
+        <item>Fried Chicken</item>
+        <item>Fried Chicken</item>
+        <item>Pasta</item>
+        <item>Pizza</item>
+        <item>Pizza</item>
+        <item>Crepe</item>
+    </string-array>
 </resources>
