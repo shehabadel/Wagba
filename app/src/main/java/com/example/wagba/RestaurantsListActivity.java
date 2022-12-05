@@ -45,6 +45,6 @@ public class RestaurantsListActivity extends AppCompatActivity implements IResta
 
     @Override
     public void onItemClick(int position) {
-
+    //TODO Open another activity that contains the Restaurant Data.
     }
 }
