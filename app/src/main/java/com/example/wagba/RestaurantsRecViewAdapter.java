@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class RestaurantsRecViewAdapter extends RecyclerView.Adapter<RestaurantsRecViewAdapter.MyViewHolder>{
-
+    private final IRestaurantRecyclerView iRestaurantRecyclerView;
     Context context;
     ArrayList<RestaurantModel> restaurantModels;
 
-    public RestaurantsRecViewAdapter(Context context, ArrayList<RestaurantModel>restaurantModels){
+    public RestaurantsRecViewAdapter(Context context, ArrayList<RestaurantModel> restaurantModels, IRestaurantRecyclerView iRestaurantRecyclerView){
         this.context=context;
         this.restaurantModels=restaurantModels;
-
+        this.iRestaurantRecyclerView=iRestaurantRecyclerView;
     }
 
     @NonNull
@@ -30,7 +30,7 @@ public class RestaurantsRecViewAdapter extends RecyclerView.Adapter<RestaurantsR
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.restaurant_item,parent,false);
 
-        return new RestaurantsRecViewAdapter.MyViewHolder(view);
+        return new RestaurantsRecViewAdapter.MyViewHolder(view, iRestaurantRecyclerView);
     }
 
     @Override
@@ -60,12 +60,24 @@ public class RestaurantsRecViewAdapter extends RecyclerView.Adapter<RestaurantsR
         TextView restaurantTitle;
         TextView restaurantCategory;
         TextView restaurantRating;
-        public MyViewHolder(@NonNull View itemView){
+        public MyViewHolder(@NonNull View itemView, IRestaurantRecyclerView iRestaurantRecyclerView){
             super(itemView);
             restaurantIcon = itemView.findViewById(R.id.restaurant_icon);
             restaurantTitle = itemView.findViewById(R.id.restaurant_title);
             restaurantCategory = itemView.findViewById(R.id.restaurant_category);
             restaurantRating = itemView.findViewById(R.id.restaurant_rating);
+
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    if(iRestaurantRecyclerView != null){
+                        int pos = getAdapterPosition();
+                        if(pos!= RecyclerView.NO_POSITION){
+                            iRestaurantRecyclerView.onItemClick(pos) ;
+                        }
+                    }
+                }
+            });
         }
     }
 }

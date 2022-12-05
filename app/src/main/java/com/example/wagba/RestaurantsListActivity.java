@@ -9,7 +9,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RestaurantsListActivity extends AppCompatActivity {
+public class RestaurantsListActivity extends AppCompatActivity implements IRestaurantRecyclerView{
     ArrayList<RestaurantModel> restaurantModels= new ArrayList<>();
     Random rand = new Random();
     RecyclerView restaurantsRecyclerView;
@@ -21,7 +21,7 @@ public class RestaurantsListActivity extends AppCompatActivity {
         setupRestaurantModels();
 
         restaurantsRecyclerView = findViewById(R.id.restaurants_rcv);
-        adapter = new RestaurantsRecViewAdapter(this,restaurantModels);
+        adapter = new RestaurantsRecViewAdapter(this,restaurantModels, this);
 
         restaurantsRecyclerView.setAdapter(adapter);
         restaurantsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -41,5 +41,10 @@ public class RestaurantsListActivity extends AppCompatActivity {
                     R.drawable.ic_baseline_restaurant_24
                     ));
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
     }
 }
