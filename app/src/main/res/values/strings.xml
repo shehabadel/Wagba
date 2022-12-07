@@ -5,6 +5,10 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
+    <string name="signup_login">Don\'t have an account? Sign Up</string>
+    <string name="login_signup">Already have an account? Login</string>
+    <string name="signupwith">Sign up with</string>
+    <string name="loginwith">Login with</string>
     <string name="previous">Previous</string>
     <string name="company_name">Wagba</string>
     <string name="company_desc">A food delivery application.</string>
