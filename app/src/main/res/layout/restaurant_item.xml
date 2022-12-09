@@ -10,9 +10,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        app:cardBackgroundColor="@color/pink_light"
-        app:cardCornerRadius="20dp"
         android:layout_marginVertical="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -22,12 +22,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/restaurant_icon"
                 android:layout_width="85dp"
-                android:layout_height="0dp"
+                android:layout_height="85dp"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +41,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:fontFamily="@font/rubik_bold"
-                android:text="Abo Anas"
+                android:text="restaurant_title"
                 android:textColor="@color/dark_red"
-                android:textSize="32sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/restaurant_icon"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,11 +52,11 @@
                 android:id="@+id/restaurant_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/rubik_light"
                 android:text="Shawerma"
                 android:textColor="@color/dark_red_light"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/restaurant_title"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/restaurant_title"
@@ -64,11 +64,10 @@
 
             <ImageView
                 android:id="@+id/star_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/restaurant_category"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/restaurant_category"
                 app:layout_constraintTop_toBottomOf="@+id/restaurant_category"
                 app:layout_constraintVertical_bias="0.0"
@@ -78,15 +77,15 @@
                 android:id="@+id/restaurant_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/rubik"
-                android:text="4.5"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/star_rating"
+                android:layout_marginTop="8dp"
+                android:text="restaurant_rating"
+                android:textColor="@color/dark_red"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.067"
                 app:layout_constraintStart_toEndOf="@+id/star_rating"
-                app:layout_constraintTop_toTopOf="@+id/star_rating"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/restaurant_category" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

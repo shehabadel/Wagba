@@ -61,6 +61,21 @@
         <item>Pizza</item>
         <item>Crepe</item>
     </string-array>
+    <string-array name="restaurant_dishes">
+        <item>Chicken Shawerma</item>
+        <item>Chichken Burger</item>
+        <item>Chicken Thigh</item>
+        <item>Chicken Breast</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dish_name">dish_name</string>
+    <string name="dish_price">dish_price</string>
+    <string name="cart">Cart</string>
+    <string name="history">History</string>
+    <string name="home">Home</string>
+    <string name="order_total_price">order_total_price</string>
+    <string name="restaurant_name">restaurant_name</string>
+    <string name="order_date">order_date</string>
+    <string name="order_number">order_number</string>
 </resources>

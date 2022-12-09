@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:elevation="8dp">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        app:cardBackgroundColor="@color/sky"
+        app:cardCornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="107dp">
+
+            <ImageView
+                android:id="@+id/dish_icon_1"
+                android:layout_width="85dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_baseline_restaurant_menu_24" />
+
+            <TextView
+                android:id="@+id/dish_title_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/rubik_bold"
+                android:text="@string/dish_name"
+                android:textColor="@color/dark_red"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/dish_icon_1"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dish_price_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/rubik_light"
+                android:text="@string/dish_price"
+                android:textColor="@color/dark_red_light"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/price_txtView"
+                app:layout_constraintTop_toBottomOf="@+id/dish_title_1"
+                app:layout_constraintVertical_bias="0.446" />
+
+            <TextView
+                android:id="@+id/price_txtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="price:"
+                android:textColor="@color/dark_red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/dish_title_1"
+                app:layout_constraintTop_toBottomOf="@+id/dish_title_1" />
+
+            <Button
+                android:id="@+id/add_to_cart_btn"
+                android:layout_width="92dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="44dp"
+                android:background="@drawable/layout_border"
+                android:fontFamily="@font/rubik_light"
+                android:shadowColor="@color/dark_red_light"
+                android:text="Add to cart"
+                android:textColor="@color/beige_light"
+                android:textColorHighlight="@color/dark_red"
+                android:textColorHint="@color/dark_red"
+                android:textColorLink="@color/dark_red"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dish_icon_1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.786"
+                app:rippleColor="@color/dark_red"
+                app:strokeColor="@color/black" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
