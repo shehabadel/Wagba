@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.DishRecViewHolder> {
     Context context;
     ArrayList<DishModel> dishModels;
+
     public DishRecViewAdapter(Context context, ArrayList<DishModel> dishModels){
         this.context=context;
         this.dishModels=dishModels;

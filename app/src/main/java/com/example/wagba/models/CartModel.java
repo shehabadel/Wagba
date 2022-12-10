@@ -24,6 +24,18 @@ public class CartModel implements Parcelable {
         }
     };
 
+    public CartModel(OrderModel order, float totalPrice) {
+        this.order = order;
+        this.totalPrice = totalPrice;
+    }
+
+    public void calculateTotalPrice(){
+        float sum= 0.0F;
+        for(int i=0; i<order.getOrderItems().size(); i++){
+            sum+=order.getOrderItems().get(i).getDishPrice();
+        }
+        this.totalPrice=sum;
+    }
     @Override
     public int describeContents() {
         return 0;
@@ -33,5 +45,13 @@ public class CartModel implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeParcelable(order, i);
         parcel.writeFloat(totalPrice);
+    }
+
+    public OrderModel getOrder() {
+        return order;
+    }
+
+    public float getTotalPrice() {
+        return totalPrice;
     }
 }

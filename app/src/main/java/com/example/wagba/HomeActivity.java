@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 
 import com.example.wagba.fragments.CartFragment;
-import com.example.wagba.fragments.HistoryFragment;
+import com.example.wagba.fragments.TrackingFragment;
 import com.example.wagba.fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         if (itemId == R.id.home_icon) {
             selectedFragment = new HomeFragment();
         } else if (itemId == R.id.history_icon) {
-            selectedFragment = new HistoryFragment();
+            selectedFragment = new TrackingFragment();
         } else if (itemId == R.id.cart_icon) {
             selectedFragment = new CartFragment();
         }
