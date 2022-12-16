@@ -78,4 +78,10 @@
     <string name="restaurant_name">restaurant_name</string>
     <string name="order_date">order_date</string>
     <string name="order_number">order_number</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="tracking">Tracking</string>
+    <string name="profile">Profile</string>
 </resources>
