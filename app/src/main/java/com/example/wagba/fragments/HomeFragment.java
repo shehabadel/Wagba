@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
         //TODO Remove this and use PreviousOrderViewModel
         String[] restaurantNames = getResources().getStringArray(R.array.restaurant_names);
         ArrayList<DishModel> dishMod = new ArrayList<DishModel>();
-        dishMod.add(new DishModel("Magdonal",50, R.drawable.ic_baseline_restaurant_menu_24));
+        dishMod.add(new DishModel("Magdonal",50, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA4DMgrZm0yjXZ3Sn3lCXjqg8Q6AHqEjVe0f54zGj7&s"));
         for(int i=0; i<4; i++){
             int orderNo = rand.nextInt(10-5)+5;
             float totalPrice =(float) (rand.nextInt(500-100)+100);

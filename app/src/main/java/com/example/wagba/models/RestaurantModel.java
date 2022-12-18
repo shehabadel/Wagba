@@ -91,4 +91,20 @@ public class RestaurantModel implements Parcelable {
     public void setRestaurantDishes(ArrayList<DishModel> restaurantDishes) {
         this.restaurantDishes = restaurantDishes;
     }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    public void setRestaurantCategory(String restaurantCategory) {
+        this.restaurantCategory = restaurantCategory;
+    }
+
+    public void setRestaurantRating(float restaurantRating) {
+        this.restaurantRating = restaurantRating;
+    }
+
+    public void setRestaurantImage(String restaurantImage) {
+        this.restaurantImage = restaurantImage;
+    }
 }

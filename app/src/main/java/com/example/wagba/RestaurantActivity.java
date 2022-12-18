@@ -15,6 +15,7 @@ import com.example.wagba.adapters.RestaurantsRecViewAdapter;
 import com.example.wagba.interfaces.IDishRecyclerView;
 import com.example.wagba.models.DishModel;
 import com.example.wagba.models.RestaurantModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -49,9 +50,10 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
         restaurantCategory.setText(restaurant.getRestaurantCategory());
         restaurantTitle.setText(restaurant.getRestaurantName());
         restaurantRating.setText(Float.toString(restaurant.getRestaurantRating()));
-        restaurantIcon.setImageResource(restaurant.getRestaurantImage());
+        Picasso.get().load(restaurant.getRestaurantImage()).into(restaurantIcon);
     }
     private void setupDishModel(){
+        /*
         //TODO fetch data from firebase and populate the restaurantModels
         String[] dishNames = getResources().getStringArray(R.array.restaurant_dishes);
 
@@ -62,7 +64,7 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
                     price,
                     R.drawable.ic_baseline_restaurant_menu_24
             ));
-        }
+        }*/
     }
     @Override
     public void onItemClick(int position) {

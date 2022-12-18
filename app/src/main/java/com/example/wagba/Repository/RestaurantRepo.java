@@ -1,8 +1,11 @@
 package com.example.wagba.Repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.wagba.models.DishModel;
 import com.example.wagba.models.RestaurantModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,12 +45,19 @@ public class RestaurantRepo {
         restaurantQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot snap:dataSnapshot.getChildren()){
-                    restaurantModels.add(snap.getValue(RestaurantModel.class));
-                }
-                restaurant.postValue(restaurantModels);
-            }
+                for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                    String restaurantCategory = (String) snap.child("restaurantCategory").getValue();
+                    String restaurantName = (String) snap.child("restaurantName").getValue();
+                    Log.d("rating",snap.child("restaurantRating").getValue().toString());
+                    float restaurantRating = Float.parseFloat(snap.child("restaurantRating").getValue().toString());
+                    String restaurantImage = (String) snap.child("restaurantImage").getValue();
+                    ArrayList<DishModel> restaurantDishes = (ArrayList<DishModel>) snap.child("restaurantDishes").getValue();
+                    Log.d("Dishes", snap.child("restaurantDishes").getValue().toString());
+                    restaurantModels.add(new RestaurantModel(restaurantName, restaurantCategory, restaurantRating, restaurantImage, restaurantDishes));
+                    restaurant.postValue(restaurantModels);
 
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

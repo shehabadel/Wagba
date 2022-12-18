@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wagba.R;
 import com.example.wagba.interfaces.IRestaurantRecyclerView;
 import com.example.wagba.models.RestaurantModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,8 @@ public class RestaurantsRecViewAdapter extends RecyclerView.Adapter<RestaurantsR
         holder.restaurantTitle.setText(restaurantModels.get(position).getRestaurantName());
         holder.restaurantCategory.setText(restaurantModels.get(position).getRestaurantCategory());
         holder.restaurantRating.setText(Float.toString(restaurantModels.get(position).getRestaurantRating()));
-        holder.restaurantIcon.setImageResource(restaurantModels.get(position).getRestaurantImage());
+        Picasso.get().load(restaurantModels.get(position).getRestaurantImage()).into(holder.restaurantIcon);
+
     }
 
 

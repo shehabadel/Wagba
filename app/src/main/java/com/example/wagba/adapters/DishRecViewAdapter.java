@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.wagba.R;
 import com.example.wagba.models.DishModel;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,8 +34,8 @@ public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.
     @Override
     public void onBindViewHolder(@NonNull DishRecViewHolder holder, int position) {
         holder.dishTitle.setText(dishModels.get(position).getDishName());
-        holder.dishIcon.setImageResource(dishModels.get(position).getDishImage());
         holder.dishPrice.setText(Integer.toString(dishModels.get(position).getDishPrice()));
+        Picasso.get().load(dishModels.get(position).getDishImage()).into(holder.dishIcon);
     }
 
     @Override

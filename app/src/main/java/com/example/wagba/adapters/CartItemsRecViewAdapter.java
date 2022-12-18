@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wagba.R;
 import com.example.wagba.models.DishModel;
+import com.squareup.picasso.Picasso;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class CartItemsRecViewAdapter extends RecyclerView.Adapter<CartItemsRecVi
     public void onBindViewHolder(@NonNull CartItemsRecViewHolder holder, int position) {
         holder.dishPrice.setText(Integer.toString(dishModels.get(position).getDishPrice()));
         holder.dishName.setText(dishModels.get(position).getDishName());
-        holder.dishIcon.setImageURI(URI.create(dishModels.get(position).getDishImage()));
+        Picasso.get().load(dishModels.get(position).getDishImage()).into(holder.dishIcon);
     }
 
     @Override

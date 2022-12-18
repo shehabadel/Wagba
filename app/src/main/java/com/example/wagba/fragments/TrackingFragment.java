@@ -40,7 +40,7 @@ public class TrackingFragment extends Fragment {
             orderDishes.add(new DishModel(
                     dishNames[i],
                     price,
-                    R.drawable.ic_baseline_restaurant_menu_24
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA4DMgrZm0yjXZ3Sn3lCXjqg8Q6AHqEjVe0f54zGj7&s"
             ));
         }
     }
