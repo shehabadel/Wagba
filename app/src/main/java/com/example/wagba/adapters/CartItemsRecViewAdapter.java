@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wagba.R;
 import com.example.wagba.models.DishModel;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 public class CartItemsRecViewAdapter extends RecyclerView.Adapter<CartItemsRecViewAdapter.CartItemsRecViewHolder> {
@@ -36,7 +37,7 @@ public class CartItemsRecViewAdapter extends RecyclerView.Adapter<CartItemsRecVi
     public void onBindViewHolder(@NonNull CartItemsRecViewHolder holder, int position) {
         holder.dishPrice.setText(Integer.toString(dishModels.get(position).getDishPrice()));
         holder.dishName.setText(dishModels.get(position).getDishName());
-        holder.dishIcon.setImageResource(dishModels.get(position).getDishImage());
+        holder.dishIcon.setImageURI(URI.create(dishModels.get(position).getDishImage()));
     }
 
     @Override

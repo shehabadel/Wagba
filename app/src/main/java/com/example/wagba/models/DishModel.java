@@ -8,9 +8,9 @@ import com.example.wagba.R;
 public class DishModel implements Parcelable {
     String dishName;
     int dishPrice;
-    int dishImage;
+    String dishImage;
 
-    public DishModel(String dishName, int dishPrice, int dishImage) {
+    public DishModel(String dishName, int dishPrice, String dishImage) {
         this.dishName = dishName;
         this.dishPrice = dishPrice;
         this.dishImage = dishImage;
@@ -19,7 +19,7 @@ public class DishModel implements Parcelable {
     protected DishModel(Parcel in) {
         dishName = in.readString();
         dishPrice = in.readInt();
-        dishImage = in.readInt();
+        dishImage = in.readString();
     }
 
     public static final Creator<DishModel> CREATOR = new Creator<DishModel>() {
@@ -42,7 +42,7 @@ public class DishModel implements Parcelable {
         return dishPrice;
     }
 
-    public int getDishImage() {
+    public String getDishImage() {
         return dishImage;
     }
 
@@ -55,6 +55,6 @@ public class DishModel implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(dishName);
         parcel.writeInt(dishPrice);
-        parcel.writeInt(dishImage);
+        parcel.writeString(dishImage);
     }
 }

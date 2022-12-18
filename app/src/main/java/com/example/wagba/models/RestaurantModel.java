@@ -10,12 +10,12 @@ public class RestaurantModel implements Parcelable {
     String restaurantName;
     String restaurantCategory;
     float restaurantRating;
-    int restaurantImage;
+    String restaurantImage;
     ArrayList<DishModel> restaurantDishes = new ArrayList<>();
     public RestaurantModel(String restaurantName,
                            String restaurantCategory,
                            float restaurantRating,
-                           int restaurantImage) {
+                           String restaurantImage) {
         this.restaurantName = restaurantName;
         this.restaurantCategory = restaurantCategory;
         this.restaurantRating = restaurantRating;
@@ -27,7 +27,7 @@ public class RestaurantModel implements Parcelable {
         restaurantName = in.readString();
         restaurantCategory = in.readString();
         restaurantRating = in.readFloat();
-        restaurantImage = in.readInt();
+        restaurantImage = in.readString();
         restaurantDishes = in.createTypedArrayList(DishModel.CREATOR);
     }
 
@@ -43,7 +43,7 @@ public class RestaurantModel implements Parcelable {
         }
     };
 
-    public RestaurantModel(String restaurantName, String restaurantCategory, float restaurantRating, int restaurantImage, ArrayList<DishModel> restaurantDishes) {
+    public RestaurantModel(String restaurantName, String restaurantCategory, float restaurantRating, String restaurantImage, ArrayList<DishModel> restaurantDishes) {
         this.restaurantName = restaurantName;
         this.restaurantCategory = restaurantCategory;
         this.restaurantRating = restaurantRating;
@@ -65,7 +65,7 @@ public class RestaurantModel implements Parcelable {
         return restaurantRating;
     }
 
-    public int getRestaurantImage() {
+    public String getRestaurantImage() {
         return restaurantImage;
     }
 
@@ -80,7 +80,7 @@ public class RestaurantModel implements Parcelable {
         parcel.writeString(restaurantName);
         parcel.writeString(restaurantCategory);
         parcel.writeFloat(restaurantRating);
-        parcel.writeInt(restaurantImage);
+        parcel.writeString(restaurantImage);
         parcel.writeTypedList(restaurantDishes);
     }
 

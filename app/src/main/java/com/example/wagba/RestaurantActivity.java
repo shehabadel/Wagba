@@ -66,8 +66,8 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
     }
     @Override
     public void onItemClick(int position) {
-       // Intent intent  = new Intent(RestaurantActivity.this,HomeActivity.class );
-       // intent.putExtra("dish",restaurant.getRestaurantDishes().get(position));
-       // startActivity(intent);
+       Intent intent  = new Intent(RestaurantActivity.this,HomeActivity.class );
+       intent.putExtra("dish",restaurant.getRestaurantDishes().get(position));
+       startActivity(intent);
     }
 }

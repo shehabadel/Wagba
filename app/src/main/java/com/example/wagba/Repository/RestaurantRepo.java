@@ -1,0 +1,57 @@
+package com.example.wagba.Repository;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.wagba.models.RestaurantModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+public class RestaurantRepo {
+    static RestaurantRepo instance;
+    private ArrayList<RestaurantModel> restaurantModels = new ArrayList<RestaurantModel>();
+    private MutableLiveData<ArrayList<RestaurantModel>> restaurant = new MutableLiveData<>();
+
+
+    public static RestaurantRepo getInstance(){
+       if(instance==null){
+           instance = new RestaurantRepo();
+       }
+       return instance;
+   }
+
+   public MutableLiveData<ArrayList<RestaurantModel>> getRestaurants(){
+
+       if(restaurantModels.size()==0){
+           loadRestaurants();
+       }
+       restaurant.setValue(restaurantModels);
+        return restaurant;
+   }
+
+    private void loadRestaurants() {
+        DatabaseReference restaurantRef = FirebaseDatabase.getInstance().getReference();
+
+        Query restaurantQuery = restaurantRef.child("restaurants");
+        restaurantQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snap:dataSnapshot.getChildren()){
+                    restaurantModels.add(snap.getValue(RestaurantModel.class));
+                }
+                restaurant.postValue(restaurantModels);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+}
