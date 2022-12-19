@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.lifecycle.Observer;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wagba.ViewModels.DishViewModel;
 import com.example.wagba.adapters.DishRecViewAdapter;
@@ -21,11 +23,12 @@ import java.util.Random;
 
 public class RestaurantActivity extends AppCompatActivity implements IDishRecyclerView {
     RestaurantModel restaurant;
-    ArrayList<DishModel> dishes = new ArrayList<>();
     TextView restaurantTitle, restaurantCategory, restaurantRating;
     ImageView restaurantIcon;
+    /**
+     * Dish ViewModel, Adapter, and restaurantID for fetching dishes.
+     * */
     int restaurantID;
-    Random rand = new Random();
     private DishViewModel dishViewModel;
     DishRecViewAdapter dishAdapter;
     @Override
@@ -73,24 +76,10 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
         restaurantRating.setText(Float.toString(restaurant.getRestaurantRating()));
         Picasso.get().load(restaurant.getRestaurantImage()).into(restaurantIcon);
     }
-    private void setupDishModel(){
-        /*
-        //TODO fetch data from firebase and populate the restaurantModels
-        String[] dishNames = getResources().getStringArray(R.array.restaurant_dishes);
-
-        for(int i=0; i< dishNames.length; i++){
-            int price = (int)(rand.nextInt())*(100-20)+20;
-            dishes.add(new DishModel(
-                    dishNames[i],
-                    price,
-                    R.drawable.ic_baseline_restaurant_menu_24
-            ));
-        }*/
-    }
     @Override
-    public void onItemClick(int position) {
-       //Intent intent  = new Intent(RestaurantActivity.this,HomeActivity.class );
-       //intent.putExtra("dish",restaurant.getRestaurantDishes().get(position));
-       //startActivity(intent);
+    public void onDishItemClick(int position) {
+        Toast.makeText(RestaurantActivity.this, "Easter-Egg: Check the Logcat", Toast.LENGTH_SHORT).show();
+        Log.d("Easter-Egg: ","Sorry for the messy design but working in a part-time job, working on my own project, " +
+                "and college's stuff including Graduation project" + " has got me so overwhelmed to think about considering a neat design.");
     }
 }

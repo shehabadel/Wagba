@@ -59,8 +59,6 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_home, container, false);
-        //setupDishModel();
-        //setupRestaurantModels();
         setupPreviousOrdersModels();
 
         /**
