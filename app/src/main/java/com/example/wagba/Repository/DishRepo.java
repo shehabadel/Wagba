@@ -1,5 +1,7 @@
 package com.example.wagba.Repository;
 
+import android.os.Build;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -33,10 +35,8 @@ public class DishRepo {
     }
 
     public MutableLiveData<ArrayList<DishModel>> getDishes(int restaurantID){
-        if(dishModels.size()==0){
-
-            loadDishes(restaurantID);
-        }
+        dishModels.clear();
+        loadDishes(restaurantID);
         dish.setValue(dishModels);
         return dish;
     }
@@ -47,10 +47,17 @@ public class DishRepo {
         dishQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for(DataSnapshot snap: snapshot.getChildren()){
                    DishModel dishSnapShot = snap.getValue(DishModel.class);
                     dishModels.add(dishSnapShot);
-                    dish.setValue(dishModels);
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (Looper.getMainLooper().isCurrentThread()) {
+                        dish.setValue(dishModels);
+                    } else {
+                        dish.postValue(dishModels);
+                    }
                 }
             }
 
@@ -59,32 +66,5 @@ public class DishRepo {
 
             }
         });
-        /*dishRef.child(DISHES_NODE)
-                .orderByChild(RESTAURANT_ID_KEY)
-                .equalTo(Integer.toString(restaurantID))
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot snap: snapshot.getChildren()){
-                            Log.d("Dish Snap",snap.getValue().toString());
-                            DishModel dishSnapShot = snap.getValue(DishModel.class);
-                            String dishID = snap.getKey();
-                            Log.d("Key of the dish: ",dishID);
-                            String dishName = snap.child("dishName").getValue().toString();
-                            int dishPrice = Integer.parseInt(snap.child("dishPrice").getValue().toString());
-                            String dishImage = snap.child("dishImage").getValue().toString();
-                            Log.d("Name of the dish: ", dishName);
-                            dishModels.add(new DishModel(Integer.parseInt(dishID),dishName,dishPrice,dishImage));
-                            dish.setValue(dishModels);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-         */
     }
 }

@@ -35,7 +35,6 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant);
-        //setupDishModel();
         /**
          * Assigning the views
          * */
@@ -57,7 +56,6 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
                 dishAdapter.notifyDataSetChanged();
             }
         });
-        Log.d("The dishes are", dishViewModel.getDishes().getValue().toString());
         dishAdapter = new DishRecViewAdapter(
                 this,
                 dishViewModel.getDishes().getValue()
