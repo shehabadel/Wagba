@@ -46,17 +46,18 @@ public class RestaurantRepo {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                    /**
+                     * Extracting the restaurant data manually to avoid
+                     * converting the data attributes to HashMap
+                     * */
                     String restaurantID = snap.getKey();
-                    Log.d("Key",restaurantID);
                     String restaurantCategory = (String) snap.child("restaurantCategory").getValue();
                     String restaurantName = (String) snap.child("restaurantName").getValue();
-                    Log.d("rating",snap.child("restaurantRating").getValue().toString());
                     float restaurantRating = Float.parseFloat(snap.child("restaurantRating").getValue().toString());
                     String restaurantImage = (String) snap.child("restaurantImage").getValue();
-                    Log.d("Dishes", snap.child("restaurantDishes").getValue().toString());
-                    restaurantModels.add(new RestaurantModel(Integer.parseInt(restaurantID),restaurantName, restaurantCategory, restaurantRating, restaurantImage));
-                    restaurant.postValue(restaurantModels);
 
+                    restaurantModels.add(new RestaurantModel(Integer.parseInt(restaurantID),restaurantName, restaurantCategory, restaurantRating, restaurantImage));
+                    restaurant.setValue(restaurantModels);
                 }
             }
             @Override

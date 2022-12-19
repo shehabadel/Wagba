@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +126,7 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
     @Override
     public void onItemClick(int position) {
         Intent intent  = new Intent(getActivity(), RestaurantActivity.class );
+        Log.d("THE RESTAURANT ID",Integer.toString(restaurantViewModel.getRestaurants().getValue().get(position).getRestaurantID()));
         intent.putExtra("restaurant",restaurantViewModel.getRestaurants().getValue().get(position));
         startActivity(intent);
     }

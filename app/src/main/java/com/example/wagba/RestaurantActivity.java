@@ -1,15 +1,17 @@
 package com.example.wagba;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.LifecycleOwner;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.wagba.ViewModels.DishViewModel;
 import com.example.wagba.adapters.DishRecViewAdapter;
 import com.example.wagba.adapters.RestaurantsRecViewAdapter;
 import com.example.wagba.interfaces.IDishRecyclerView;
@@ -25,28 +27,52 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
     ArrayList<DishModel> dishes = new ArrayList<>();
     TextView restaurantTitle, restaurantCategory, restaurantRating;
     ImageView restaurantIcon;
+    int restaurantID;
     Random rand = new Random();
-
+    private DishViewModel dishViewModel;
+    DishRecViewAdapter dishAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant);
-        setupDishModel();
-        RecyclerView dishesRecyclerView = findViewById(R.id.restaurant_dish_rcv);
-
-
-
-        //Assigning the views
+        //setupDishModel();
+        /**
+         * Assigning the views
+         * */
         restaurant = getIntent().getParcelableExtra("restaurant");
         restaurantCategory = findViewById(R.id.restaurant_category);
         restaurantTitle = findViewById(R.id.restaurant_title);
         restaurantRating = findViewById(R.id.restaurant_rating);
         restaurantIcon = findViewById(R.id.restaurant_icon);
+        restaurantID = restaurant.getRestaurantID();
+        /**
+         * Dish ViewMode, RecyclerView, Adapter
+         * */
+        RecyclerView dishesRecyclerView = findViewById(R.id.restaurant_dish_rcv);
+        dishViewModel = new ViewModelProvider(this).get(DishViewModel.class);
+        dishViewModel.init(restaurantID);
+        dishViewModel.getDishes().observe(this, new Observer<ArrayList<DishModel>>() {
+            @Override
+            public void onChanged(ArrayList<DishModel> dishModels) {
+                dishAdapter.notifyDataSetChanged();
+            }
+        });
+        Log.d("The dishes are", dishViewModel.getDishes().getValue().toString());
+        dishAdapter = new DishRecViewAdapter(
+                this,
+                dishViewModel.getDishes().getValue()
+        );
 
-        DishRecViewAdapter dishAdapter = new DishRecViewAdapter(this, restaurant.getRestaurantDishes());
+       /**
+        * Dish's Recycler View setting the adapter
+        * */
         dishesRecyclerView.setAdapter(dishAdapter);
         dishesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //Updating the views with restaurant model's values
+
+
+        /**
+         * Updating the views with restaurant model's values
+         * */
         restaurantCategory.setText(restaurant.getRestaurantCategory());
         restaurantTitle.setText(restaurant.getRestaurantName());
         restaurantRating.setText(Float.toString(restaurant.getRestaurantRating()));
@@ -68,8 +94,8 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
     }
     @Override
     public void onItemClick(int position) {
-       Intent intent  = new Intent(RestaurantActivity.this,HomeActivity.class );
-       intent.putExtra("dish",restaurant.getRestaurantDishes().get(position));
-       startActivity(intent);
+       //Intent intent  = new Intent(RestaurantActivity.this,HomeActivity.class );
+       //intent.putExtra("dish",restaurant.getRestaurantDishes().get(position));
+       //startActivity(intent);
     }
 }
