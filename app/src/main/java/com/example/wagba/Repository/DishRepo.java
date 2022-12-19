@@ -25,7 +25,6 @@ public class DishRepo {
     private MutableLiveData<ArrayList<DishModel>> dish = new MutableLiveData<>();
     private static final String DISHES_PARENT_NODE = "restaurants";
     private static final String DISHES_NODE = "restaurantDishes";
-    private static final String RESTAURANT_ID_KEY = "restaurantID";
 
     public static DishRepo getInstance(){
         if(instance==null){
@@ -47,20 +46,22 @@ public class DishRepo {
         dishQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for(DataSnapshot snap: snapshot.getChildren()){
-                   DishModel dishSnapShot = snap.getValue(DishModel.class);
-                    dishModels.add(dishSnapShot);
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (Looper.getMainLooper().isCurrentThread()) {
-                        dish.setValue(dishModels);
-                    } else {
-                        dish.postValue(dishModels);
+                try{
+                    for(DataSnapshot snap: snapshot.getChildren()){
+                        DishModel dishSnapShot = snap.getValue(DishModel.class);
+                        dishModels.add(dishSnapShot);
                     }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (Looper.getMainLooper().isCurrentThread()) {
+                            dish.setValue(dishModels);
+                        } else {
+                            dish.postValue(dishModels);
+                        }
+                    }
+                }catch(Exception e){
+                    Log.e("DishRepo Exception: ",e.getStackTrace().toString());
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

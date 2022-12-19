@@ -126,7 +126,6 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
     @Override
     public void onItemClick(int position) {
         Intent intent  = new Intent(getActivity(), RestaurantActivity.class );
-        Log.d("THE RESTAURANT ID",Integer.toString(restaurantViewModel.getRestaurants().getValue().get(position).getRestaurantID()));
         intent.putExtra("restaurant",restaurantViewModel.getRestaurants().getValue().get(position));
         startActivity(intent);
     }

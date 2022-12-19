@@ -5,15 +5,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.LifecycleOwner;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wagba.ViewModels.DishViewModel;
 import com.example.wagba.adapters.DishRecViewAdapter;
-import com.example.wagba.adapters.RestaurantsRecViewAdapter;
 import com.example.wagba.interfaces.IDishRecyclerView;
 import com.example.wagba.models.DishModel;
 import com.example.wagba.models.RestaurantModel;

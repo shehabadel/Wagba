@@ -45,19 +45,23 @@ public class RestaurantRepo {
         restaurantQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                    /**
-                     * Extracting the restaurant data manually to avoid
-                     * converting the data attributes to HashMap
-                     * */
-                    String restaurantID = snap.getKey();
-                    String restaurantCategory = (String) snap.child("restaurantCategory").getValue();
-                    String restaurantName = (String) snap.child("restaurantName").getValue();
-                    float restaurantRating = Float.parseFloat(snap.child("restaurantRating").getValue().toString());
-                    String restaurantImage = (String) snap.child("restaurantImage").getValue();
+                try{
+                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                        /**
+                         * Extracting the restaurant data manually to avoid
+                         * converting the data attributes to HashMap
+                         * */
+                        String restaurantID = snap.getKey();
+                        String restaurantCategory = (String) snap.child("restaurantCategory").getValue();
+                        String restaurantName = (String) snap.child("restaurantName").getValue();
+                        float restaurantRating = Float.parseFloat(snap.child("restaurantRating").getValue().toString());
+                        String restaurantImage = (String) snap.child("restaurantImage").getValue();
 
-                    restaurantModels.add(new RestaurantModel(Integer.parseInt(restaurantID),restaurantName, restaurantCategory, restaurantRating, restaurantImage));
-                    restaurant.setValue(restaurantModels);
+                        restaurantModels.add(new RestaurantModel(Integer.parseInt(restaurantID),restaurantName, restaurantCategory, restaurantRating, restaurantImage));
+                        restaurant.setValue(restaurantModels);
+                    }
+                }catch(Exception e){
+                    Log.e("ResRepo Exception: ", e.getStackTrace().toString());
                 }
             }
             @Override
