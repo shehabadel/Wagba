@@ -7,23 +7,28 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RestaurantModel implements Parcelable {
+    int restaurantID;
     String restaurantName;
     String restaurantCategory;
     float restaurantRating;
     String restaurantImage;
     ArrayList<DishModel> restaurantDishes = new ArrayList<>();
-    public RestaurantModel(String restaurantName,
-                           String restaurantCategory,
-                           float restaurantRating,
-                           String restaurantImage) {
+
+
+
+    public RestaurantModel(String restaurantName, String restaurantCategory, float restaurantRating, String restaurantImage, ArrayList<DishModel> restaurantDishes, int id) {
         this.restaurantName = restaurantName;
         this.restaurantCategory = restaurantCategory;
         this.restaurantRating = restaurantRating;
         this.restaurantImage = restaurantImage;
+        ArrayList<DishModel> copiedDishModel = new ArrayList<>();
+        copiedDishModel.addAll(restaurantDishes);
+        this.restaurantDishes = copiedDishModel;
+        this.restaurantID=id;
     }
 
-
     protected RestaurantModel(Parcel in) {
+        restaurantID = in.readInt();
         restaurantName = in.readString();
         restaurantCategory = in.readString();
         restaurantRating = in.readFloat();
@@ -43,14 +48,12 @@ public class RestaurantModel implements Parcelable {
         }
     };
 
-    public RestaurantModel(String restaurantName, String restaurantCategory, float restaurantRating, String restaurantImage, ArrayList<DishModel> restaurantDishes) {
+    public RestaurantModel(int restaurantID, String restaurantName, String restaurantCategory, float restaurantRating, String restaurantImage) {
+        this.restaurantID = restaurantID;
         this.restaurantName = restaurantName;
         this.restaurantCategory = restaurantCategory;
         this.restaurantRating = restaurantRating;
         this.restaurantImage = restaurantImage;
-        ArrayList<DishModel> copiedDishModel = new ArrayList<>();
-        copiedDishModel.addAll(restaurantDishes);
-        this.restaurantDishes = copiedDishModel;
     }
 
     public String getRestaurantName() {
@@ -67,21 +70,6 @@ public class RestaurantModel implements Parcelable {
 
     public String getRestaurantImage() {
         return restaurantImage;
-    }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(restaurantName);
-        parcel.writeString(restaurantCategory);
-        parcel.writeFloat(restaurantRating);
-        parcel.writeString(restaurantImage);
-        parcel.writeTypedList(restaurantDishes);
     }
 
     public ArrayList<DishModel> getRestaurantDishes() {
@@ -106,5 +94,24 @@ public class RestaurantModel implements Parcelable {
 
     public void setRestaurantImage(String restaurantImage) {
         this.restaurantImage = restaurantImage;
+    }
+
+    public int getRestaurantID() {
+        return restaurantID;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(restaurantID);
+        parcel.writeString(restaurantName);
+        parcel.writeString(restaurantCategory);
+        parcel.writeFloat(restaurantRating);
+        parcel.writeString(restaurantImage);
+        parcel.writeTypedList(restaurantDishes);
     }
 }
