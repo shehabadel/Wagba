@@ -29,7 +29,7 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public LiveData<User> getUser() {
-        return repository.getUser();
+        return user;
     }
 
     public void findByEmail(String email) {
