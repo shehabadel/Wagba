@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +18,9 @@ import android.widget.Toast;
 
 import com.example.wagba.PaymentActivity;
 import com.example.wagba.R;
+import com.example.wagba.ViewModels.CartViewModel;
 import com.example.wagba.adapters.CartItemsRecViewAdapter;
+import com.example.wagba.models.CartModel;
 import com.example.wagba.models.DishModel;
 
 import java.util.ArrayList;
@@ -28,6 +32,8 @@ public class CartFragment extends Fragment {
     Random rand = new Random();
     RecyclerView cartItemsRecView;
     CartItemsRecViewAdapter cartItemsAdapter;
+    CartViewModel cartViewModel;
+    CartModel cart;
     public CartFragment() {
         // Required empty public constructor
     }
@@ -37,6 +43,7 @@ public class CartFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
     private void setupDishModel(){
         //TODO fetch data from firebase and populate the orderDishes
         String[] dishNames = getResources().getStringArray(R.array.restaurant_dishes);
@@ -50,6 +57,7 @@ public class CartFragment extends Fragment {
             ));
         }
     }
+
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,9 +74,19 @@ public class CartFragment extends Fragment {
             }
         });
         setupDishModel();
-
+        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        cartViewModel.init();
+        cartViewModel.getCart().observe(getViewLifecycleOwner(), new Observer<CartModel>() {
+            @Override
+            public void onChanged(CartModel cartModel) {
+                cartItemsAdapter.notifyDataSetChanged();
+            }
+        });
         cartItemsRecView = view.findViewById(R.id.cart_items_rcv);
-        cartItemsAdapter = new CartItemsRecViewAdapter(view.getContext(),cartDishes);
+        cartItemsAdapter = new CartItemsRecViewAdapter(
+                view.getContext(),
+                cartViewModel.getCart().getValue().getCartItems())
+        ;
         cartItemsRecView.setAdapter(cartItemsAdapter);
         cartItemsRecView.setLayoutManager(new LinearLayoutManager(view.getContext(),RecyclerView.VERTICAL,false));
         return view;

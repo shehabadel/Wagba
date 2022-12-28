@@ -9,6 +9,11 @@ public class DishModel implements Parcelable {
     int dishID;
     String dishName;
     int dishPrice;
+
+    public void setDishID(int dishID) {
+        this.dishID = dishID;
+    }
+
     String dishImage;
 
     public DishModel(){}

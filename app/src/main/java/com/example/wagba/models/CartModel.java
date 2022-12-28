@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class CartModel implements Parcelable {
-    ArrayList<DishModel> cartItems;
+    ArrayList<DishModel> cartItems = new ArrayList<>();
     float totalPrice;
 
     protected CartModel(Parcel in) {
@@ -14,6 +14,7 @@ public class CartModel implements Parcelable {
         totalPrice = in.readFloat();
     }
 
+    public CartModel(){}
     public static final Creator<CartModel> CREATOR = new Creator<CartModel>() {
         @Override
         public CartModel createFromParcel(Parcel in) {
@@ -26,6 +27,9 @@ public class CartModel implements Parcelable {
         }
     };
 
+    public CartModel(ArrayList<DishModel> cartItems){
+        this.cartItems=cartItems;
+    }
     public CartModel(ArrayList<DishModel> cartItems, float totalPrice) {
         this.cartItems = cartItems;
         this.totalPrice = totalPrice;
@@ -54,6 +58,9 @@ public class CartModel implements Parcelable {
         return cartItems;
     }
 
+    public void addDishToCart(DishModel dish){
+        this.cartItems.add(dish);
+    }
     public float getTotalPrice() {
         return totalPrice;
     }
