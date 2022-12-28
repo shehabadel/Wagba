@@ -3,6 +3,7 @@ package com.example.wagba;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
@@ -31,21 +32,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.concurrent.ExecutionException;
+
 public class LoginActivity extends AppCompatActivity {
     EditText pwEditTxt,emailEditTxt;
     Button goToSignUp, loginBtn;
     FirebaseAuth auth;
-    UserViewModel userViewModel;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        /**
-         * UserViewModel for inserting the logged in user in the Room's Database.
-         * */
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         pwEditTxt = findViewById(R.id.pw_editTxt);
         emailEditTxt = findViewById(R.id.email_editTxt);
         goToSignUp=findViewById(R.id.SignUp_btn);
@@ -89,11 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(LoginActivity.this, "Account logged in successfully!", Toast.LENGTH_SHORT).show();
-                        /**
-                         * Save the logged in user in the Room's Database.
-                         * */
-                        User user = new User(email);
-                        userViewModel.insert(user);
                         /**
                          * Start the Home activity that contains Restaurants List...etc.
                          * */

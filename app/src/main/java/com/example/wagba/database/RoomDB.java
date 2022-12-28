@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.wagba.dao.UserDao;
 import com.example.wagba.models.User;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class}, version = 3)
 public abstract class RoomDB extends RoomDatabase {
 /*
 * Singleton

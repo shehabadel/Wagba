@@ -2,6 +2,8 @@ package com.example.wagba;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,25 +15,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.wagba.ViewModels.UserViewModel;
+import com.example.wagba.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
     EditText pwEditTxt,emailEditTxt;
     Button goToLogin, signUp;
-
+    UserViewModel userViewModel;
     FirebaseAuth auth;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-
+        /**
+         * UserViewModel for inserting the logged in user in the Room's Database.
+         * */
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         pwEditTxt = findViewById(R.id.pw_editTxt2);
         emailEditTxt = findViewById(R.id.email_editTxt2);
         goToLogin=findViewById(R.id.loginBtn_SignUpPage);
@@ -71,6 +79,14 @@ public class SignUpActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        /**
+                         * Save the logged in user in the Room's Database.
+                         * */
+                        User user = new User(email);
+                        /**
+                         * Insert the user to the Room's database.
+                         * */
+                        userViewModel.insert(user);
                         Toast.makeText(SignUpActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         finish();

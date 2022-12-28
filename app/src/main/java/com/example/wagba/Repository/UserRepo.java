@@ -9,8 +9,12 @@ import com.example.wagba.dao.UserDao;
 import com.example.wagba.database.RoomDB;
 import com.example.wagba.models.User;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 public class UserRepo {
     private UserDao userDao;
+    private LiveData<List<User>> users;
     private LiveData<User> user;
 
     public UserRepo(Application application) {
@@ -20,7 +24,7 @@ public class UserRepo {
          * find returns a User not List<User>.
          * It's just because there's only one user's details saved in the Database
          * */
-        user = userDao.find();
+        users = userDao.findAll();
     }
 
     public void insert(User user) {
@@ -34,8 +38,10 @@ public class UserRepo {
     public void delete(User user){
         new DeleteUserAsyncTask(userDao).execute(user);
     }
-    public void findByEmail(String email){
-        new FindByEmailAsyncTask(userDao).execute(email);
+    public LiveData<User> findByEmail(String email) throws ExecutionException, InterruptedException {
+        FindByEmailAsyncTask task = new FindByEmailAsyncTask(userDao);
+        LiveData<User> user = task.execute(email).get();
+        return user;
     }
     public void findByID(int id){
         new FindByIDAsyncTask(userDao).execute(id);
@@ -46,7 +52,10 @@ public class UserRepo {
     public void deleteAll(){
         new DeleteAllAsyncTask(userDao).execute();
     }
-    public LiveData<User> getUser() {
+    public LiveData<List<User>> getUsers() {
+        return users;
+    }
+    public LiveData<User> getUser(){
         return user;
     }
 

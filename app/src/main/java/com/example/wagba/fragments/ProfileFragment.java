@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.wagba.HomeActivity;
 import com.example.wagba.LoginActivity;
 import com.example.wagba.R;
 import com.example.wagba.ViewModels.UserViewModel;
@@ -54,30 +53,35 @@ public class ProfileFragment extends Fragment {
          * */
         auth = FirebaseAuth.getInstance();
 
-        /**
-        * add the avatar of the user, and his email
-        * */
+        //Current logged in user email
+        String currentUserEmail = auth.getCurrentUser().getEmail();
+
         try{
-            userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
-                loggedInUser = user;
-                userEmail.setText(loggedInUser.getEmail());
+            userViewModel.findByEmail(currentUserEmail).observe(getViewLifecycleOwner(), user -> {
+                if(user!=null){
+                    loggedInUser = user;
+                    /**
+                     * set the avatar of the user, name, email...etc.
+                     * */
+                    userEmail.setText(loggedInUser.getEmail());
+                }else{
+                    User userAccount = new User(currentUserEmail);
+                    userViewModel.insert(userAccount);
+                }
             });
         }catch(Exception e){
             loggedInUser = new User("Exception@gmail.com");
             userEmail.setText(loggedInUser.getEmail());
             Log.e("ProfileFrag",e.getMessage());
         }
-
-
         /**
          * Logout functionality.
-         * Destroy the user's session, and remove the user's details from RoomDB.
+         * Destroy the user's session.
          * */
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
-                userViewModel.delete(loggedInUser);
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 getActivity().finish();
             }

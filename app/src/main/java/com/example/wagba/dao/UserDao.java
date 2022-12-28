@@ -9,6 +9,8 @@ import androidx.room.Update;
 
 import com.example.wagba.models.User;
 
+import java.util.List;
+
 @Dao
 public interface UserDao {
 
@@ -29,6 +31,9 @@ public interface UserDao {
 
     @Query("SELECT * FROM users LIMIT 1")
     LiveData<User> find();
+
+    @Query("SELECT * FROM users")
+    LiveData<List<User>> findAll();
 
     @Query("DELETE FROM users")
     void deleteAll();
