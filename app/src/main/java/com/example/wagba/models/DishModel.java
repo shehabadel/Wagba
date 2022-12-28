@@ -6,11 +6,11 @@ import android.os.Parcelable;
 import com.example.wagba.R;
 
 public class DishModel implements Parcelable {
-    int dishID;
+    String dishID;
     String dishName;
     int dishPrice;
 
-    public void setDishID(int dishID) {
+    public void setDishID(String dishID) {
         this.dishID = dishID;
     }
 
@@ -25,7 +25,7 @@ public class DishModel implements Parcelable {
 
 
 
-    public DishModel(int dishID, String dishName, int dishPrice, String dishImage) {
+    public DishModel(String dishID, String dishName, int dishPrice, String dishImage) {
         this.dishID = dishID;
         this.dishName = dishName;
         this.dishPrice = dishPrice;
@@ -33,7 +33,7 @@ public class DishModel implements Parcelable {
     }
 
     protected DishModel(Parcel in) {
-        dishID = in.readInt();
+        dishID = in.readString();
         dishName = in.readString();
         dishPrice = in.readInt();
         dishImage = in.readString();
@@ -41,7 +41,7 @@ public class DishModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(dishID);
+        dest.writeString(dishID);
         dest.writeString(dishName);
         dest.writeInt(dishPrice);
         dest.writeString(dishImage);
@@ -76,7 +76,7 @@ public class DishModel implements Parcelable {
         return dishImage;
     }
 
-    public int getDishID() {
+    public String getDishID() {
         return dishID;
     }
 }

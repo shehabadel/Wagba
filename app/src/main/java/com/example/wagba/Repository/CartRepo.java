@@ -42,6 +42,7 @@ public class CartRepo {
         /**
          * Add a dish to the cart and notify changes and update the firebase db
          * */
+        pushToCart(dish);
     }
     private void loadCart() {
         cartModel = new CartModel();
@@ -55,7 +56,7 @@ public class CartRepo {
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     String dishID = snap.getKey();
                     DishModel dish = snap.getValue(DishModel.class);
-                    dish.setDishID(Integer.parseInt(dishID));
+                    dish.setDishID(dishID);
                     cartModel.addDishToCart(dish);
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -70,5 +71,14 @@ public class CartRepo {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    private void pushToCart(DishModel dish){
+        auth = FirebaseAuth.getInstance();
+        String currentUser = auth.getCurrentUser().getUid();
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference cartRef  = db.child("users").child(currentUser).child("cart").push();
+
+        cartRef.setValue(dish);
     }
 }

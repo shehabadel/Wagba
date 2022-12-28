@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.wagba.R;
+import com.example.wagba.ViewModels.CartViewModel;
 import com.example.wagba.ViewModels.UserViewModel;
 import com.example.wagba.models.DishModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -22,9 +25,12 @@ import java.util.ArrayList;
 public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.DishRecViewHolder> {
     Context context;
     ArrayList<DishModel> dishModels;
+    CartViewModel cartViewModel;
+
     public DishRecViewAdapter(Context context, ArrayList<DishModel> dishModels){
         this.context=context;
         this.dishModels=dishModels;
+        cartViewModel = new ViewModelProvider((FragmentActivity) context).get(CartViewModel.class);
         /**
          * Creating a Firebase Authentication instance to reference to
          * the userRef in the database and aid in pushing in the cart.
@@ -49,6 +55,7 @@ public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.
                 /**
                  * Add the item to the cart
                  * */
+                cartViewModel.addToCart(dishModels.get(holder.getAdapterPosition()));
             }
         });
     }
