@@ -3,12 +3,14 @@ package com.example.wagba.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class CartModel implements Parcelable {
-    OrderModel order;
+    ArrayList<DishModel> cartItems;
     float totalPrice;
 
     protected CartModel(Parcel in) {
-        order = in.readParcelable(OrderModel.class.getClassLoader());
+        cartItems = in.createTypedArrayList(DishModel.CREATOR);
         totalPrice = in.readFloat();
     }
 
@@ -24,18 +26,19 @@ public class CartModel implements Parcelable {
         }
     };
 
-    public CartModel(OrderModel order, float totalPrice) {
-        this.order = order;
+    public CartModel(ArrayList<DishModel> cartItems, float totalPrice) {
+        this.cartItems = cartItems;
         this.totalPrice = totalPrice;
     }
 
     public void calculateTotalPrice(){
         float sum= 0.0F;
-        for(int i=0; i<order.getOrderItems().size(); i++){
-            sum+=order.getOrderItems().get(i).getDishPrice();
+        for(int i=0; i<cartItems.size(); i++){
+            sum+=cartItems.get(i).getDishPrice();
         }
         this.totalPrice=sum;
     }
+
     @Override
     public int describeContents() {
         return 0;
@@ -43,12 +46,12 @@ public class CartModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeParcelable(order, i);
+        parcel.writeTypedList(cartItems);
         parcel.writeFloat(totalPrice);
     }
 
-    public OrderModel getOrder() {
-        return order;
+    public ArrayList<DishModel> getCartItems() {
+        return cartItems;
     }
 
     public float getTotalPrice() {

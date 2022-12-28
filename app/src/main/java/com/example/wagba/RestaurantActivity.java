@@ -67,7 +67,6 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
         dishesRecyclerView.setAdapter(dishAdapter);
         dishesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         /**
          * Updating the views with restaurant model's values
          * */

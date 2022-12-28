@@ -3,6 +3,7 @@ package com.example.wagba;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wagba.ViewModels.UserViewModel;
+import com.example.wagba.models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -32,19 +35,17 @@ public class LoginActivity extends AppCompatActivity {
     EditText pwEditTxt,emailEditTxt;
     Button goToSignUp, loginBtn;
     FirebaseAuth auth;
-    /*
-    ImageView signupGoogleImg, signUpMSImg;
-    private GoogleSignInClient googleSignInClient;
-    FirebaseAuth auth;
-    GoogleSignInOptions googleSignInOptions;
-    static int RC_SIGN_IN=1234;
-    */
+    UserViewModel userViewModel;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        /**
+         * UserViewModel for inserting the logged in user in the Room's Database.
+         * */
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         pwEditTxt = findViewById(R.id.pw_editTxt);
         emailEditTxt = findViewById(R.id.email_editTxt);
         goToSignUp=findViewById(R.id.SignUp_btn);
@@ -68,28 +69,14 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser();
             }
         });
-
-        /*
-        signupGoogleImg = findViewById(R.id.signup_google);
-        signUpMSImg = findViewById(R.id.signup_microsoft);
-        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
-        
-        
-        signupGoogleImg.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                SignIn();
-            }
-        });
-*/
     }
 
     private void loginUser() {
         String email = emailEditTxt.getText().toString();
         String password = pwEditTxt.getText().toString();
+        /**
+         * Input Validation
+         * */
         if(TextUtils.isEmpty(email)){
             Toast.makeText(LoginActivity.this,"Email cannot be empty!",Toast.LENGTH_SHORT).show();
         }
@@ -102,6 +89,14 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(LoginActivity.this, "Account logged in successfully!", Toast.LENGTH_SHORT).show();
+                        /**
+                         * Save the logged in user in the Room's Database.
+                         * */
+                        User user = new User(email);
+                        userViewModel.insert(user);
+                        /**
+                         * Start the Home activity that contains Restaurants List...etc.
+                         * */
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         finish();
                     }else{
@@ -112,37 +107,4 @@ public class LoginActivity extends AppCompatActivity {
             });
         }
     }
-/*
-    private void SignIn() {
-        Intent intent = googleSignInClient.getSignInIntent();
-        startActivityForResult(intent,RC_SIGN_IN);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            firebaseAuthGoogleSignIn(task.);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-            }catch(ApiException e){
-                e.printStackTrace();
-                Toast.makeText(this,"Error in signing in", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    void firebaseAuthGoogleSignIn(GoogleSignInAccount acc){
-        AuthCredential credential = GoogleAuthProvider.getCredential(acc.getIdToken(),null);
-        auth.signInWithCredential(credential).addOnSuccessListener(this, authResult->{
-            startActivity(new Intent(this,MainActivity.class));
-            finish();
-        }).addOnFailureListener(this, e->{
-            Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
-        });
-    }
-
- */
 }
