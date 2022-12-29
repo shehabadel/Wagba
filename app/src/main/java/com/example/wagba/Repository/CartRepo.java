@@ -74,9 +74,14 @@ public class CartRepo {
     }
 
     private void pushToCart(DishModel dish){
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference cartRef  = db.child("users").child(currentUser).child("cart").push();
-        cartRef.setValue(dish);
+        try{
+            DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference cartRef  = db.child("users").child(currentUser).child("cart").push();
+            cartRef.setValue(dish);
+        }catch(Exception e){
+            Log.e("CartRepo",e.getMessage());
+        }
+
     }
 
     private void removeItem(String dishID){
