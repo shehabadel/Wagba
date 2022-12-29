@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wagba.PaymentActivity;
@@ -34,6 +35,8 @@ public class CartFragment extends Fragment {
     CartItemsRecViewAdapter cartItemsAdapter;
     CartViewModel cartViewModel;
     CartModel cart;
+    TextView basketTotal;
+    TextView cartTotalTxt;
     public CartFragment() {
         // Required empty public constructor
     }
@@ -65,6 +68,8 @@ public class CartFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_cart, container, false);
         checkoutBtn = view.findViewById(R.id.checkout_btn);
+        basketTotal = view.findViewById(R.id.basket_total);
+        cartTotalTxt = view.findViewById(R.id.total);
         checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +85,10 @@ public class CartFragment extends Fragment {
             @Override
             public void onChanged(CartModel cartModel) {
                 cartItemsAdapter.notifyDataSetChanged();
+                cartModel.calculateTotalPrice();
+                float cartTotal = cartModel.getTotalPrice();
+                basketTotal.setText(Float.toString(cartTotal) +" EGP");
+                cartTotalTxt.setText(Float.toString(cartTotal)+" EGP");
             }
         });
         cartItemsRecView = view.findViewById(R.id.cart_items_rcv);

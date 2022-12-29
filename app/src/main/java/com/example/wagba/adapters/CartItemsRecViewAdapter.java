@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -51,6 +52,7 @@ public class CartItemsRecViewAdapter extends RecyclerView.Adapter<CartItemsRecVi
                  * Remove that current item from the cart.
                  * */
                 cartViewModel.removeFromCart(dishModels.get(holder.getAdapterPosition()).getDishID());
+                Toast.makeText(context.getApplicationContext(), "Item removed from cart",Toast.LENGTH_SHORT).show();
 
             }
         });

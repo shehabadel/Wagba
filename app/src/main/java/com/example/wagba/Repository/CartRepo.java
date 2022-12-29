@@ -50,6 +50,7 @@ public class CartRepo {
          * Remove a dish from a cart
          * */
         removeItem(dishID);
+
     }
     private void loadCart() {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();

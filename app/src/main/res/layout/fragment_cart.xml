@@ -140,14 +140,12 @@
                     android:id="@+id/delivery_fee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="delivery_fee"
                     android:textColor="#636363" />
 
                 <TextView
                     android:id="@+id/service_fee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="service_fee"
                     android:textColor="#636363" />
 
                 <TextView

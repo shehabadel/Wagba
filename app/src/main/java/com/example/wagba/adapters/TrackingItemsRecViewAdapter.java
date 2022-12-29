@@ -28,7 +28,7 @@ public class TrackingItemsRecViewAdapter extends RecyclerView.Adapter<TrackingIt
     @Override
     public TrackingItemsRecViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view  = inflater.inflate(R.layout.order_item,parent,false);
+        View view  = inflater.inflate(R.layout.dish_item,parent,false);
 
         return new TrackingItemsRecViewHolder(view);
     }

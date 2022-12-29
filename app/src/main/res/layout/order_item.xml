@@ -81,7 +81,7 @@
                 android:text="🗑"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/order_dish_icon"
-                app:layout_constraintStart_toEndOf="@+id/order_dish_price"
+                app:layout_constraintStart_toEndOf="@+id/order_dish_title"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

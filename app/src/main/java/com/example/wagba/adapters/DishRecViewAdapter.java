@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.wagba.R;
 import com.example.wagba.ViewModels.CartViewModel;
 import com.example.wagba.ViewModels.UserViewModel;
@@ -56,6 +58,8 @@ public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.
                  * Add the item to the cart
                  * */
                 cartViewModel.addToCart(dishModels.get(holder.getAdapterPosition()));
+                Toast.makeText(context.getApplicationContext(), "Item added to cart",Toast.LENGTH_SHORT).show();
+
             }
         });
     }
