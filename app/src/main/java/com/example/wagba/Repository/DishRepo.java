@@ -47,6 +47,7 @@ public class DishRepo {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try{
+                    dishModels.clear();
                     for(DataSnapshot snap: snapshot.getChildren()){
                         DishModel dishSnapShot = snap.getValue(DishModel.class);
                         dishModels.add(dishSnapShot);

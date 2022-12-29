@@ -64,4 +64,7 @@ public class CartModel implements Parcelable {
     public float getTotalPrice() {
         return totalPrice;
     }
+    public void clearDishes(){
+        this.cartItems.clear();
+    }
 }

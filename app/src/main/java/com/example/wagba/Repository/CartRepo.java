@@ -24,8 +24,9 @@ public class CartRepo {
     static CartRepo instance;
     private MutableLiveData<CartModel> cart = new MutableLiveData<>();
     private ArrayList<DishModel> dishes = new ArrayList<>();
-    private FirebaseAuth auth;
-    CartModel cartModel;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    String currentUser = auth.getCurrentUser().getUid();
+    CartModel cartModel = new CartModel();
 
     public static CartRepo getInstance(){
         if(instance==null){
@@ -44,28 +45,27 @@ public class CartRepo {
          * */
         pushToCart(dish);
     }
+    public void removeFromCart(String dishID){
+        /**
+         * Remove a dish from a cart
+         * */
+        removeItem(dishID);
+    }
     private void loadCart() {
-        cartModel = new CartModel();
-        auth = FirebaseAuth.getInstance();
-        String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query cartQuery  = db.child("users").child(currentUser).child("cart");
         cartQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // To avoid populating duplicate data on change
+                cartModel.clearDishes();
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     String dishID = snap.getKey();
                     DishModel dish = snap.getValue(DishModel.class);
                     dish.setDishID(dishID);
                     cartModel.addDishToCart(dish);
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (Looper.getMainLooper().isCurrentThread()) {
-                        cart.setValue(cartModel);
-                    } else {
-                        cart.postValue(cartModel);
-                    }
-                }
+                cart.postValue(cartModel);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -74,11 +74,23 @@ public class CartRepo {
     }
 
     private void pushToCart(DishModel dish){
-        auth = FirebaseAuth.getInstance();
-        String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         DatabaseReference cartRef  = db.child("users").child(currentUser).child("cart").push();
-
         cartRef.setValue(dish);
+    }
+
+    private void removeItem(String dishID){
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        db.child("users").child(currentUser).child("cart").child(dishID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snapshot.getRef().removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

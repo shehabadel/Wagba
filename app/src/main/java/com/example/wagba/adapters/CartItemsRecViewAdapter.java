@@ -4,26 +4,31 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wagba.R;
+import com.example.wagba.ViewModels.CartViewModel;
 import com.example.wagba.models.DishModel;
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 public class CartItemsRecViewAdapter extends RecyclerView.Adapter<CartItemsRecViewAdapter.CartItemsRecViewHolder> {
     Context context;
     ArrayList<DishModel> dishModels;
+    CartViewModel cartViewModel;
 
     public CartItemsRecViewAdapter(Context context, ArrayList<DishModel> dishModels){
         this.context=context;
         this.dishModels=dishModels;
+        cartViewModel = new ViewModelProvider((FragmentActivity) context).get(CartViewModel.class);
     }
     @NonNull
     @Override
@@ -39,6 +44,16 @@ public class CartItemsRecViewAdapter extends RecyclerView.Adapter<CartItemsRecVi
         holder.dishPrice.setText(Integer.toString(dishModels.get(position).getDishPrice()));
         holder.dishName.setText(dishModels.get(position).getDishName());
         Picasso.get().load(dishModels.get(position).getDishImage()).into(holder.dishIcon);
+        holder.removeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /**
+                 * Remove that current item from the cart.
+                 * */
+                cartViewModel.removeFromCart(dishModels.get(holder.getAdapterPosition()).getDishID());
+
+            }
+        });
     }
 
     @Override
@@ -49,11 +64,13 @@ public class CartItemsRecViewAdapter extends RecyclerView.Adapter<CartItemsRecVi
     public static class CartItemsRecViewHolder extends RecyclerView.ViewHolder{
         TextView dishName,dishPrice;
         ImageView dishIcon;
+        Button removeBtn;
         public CartItemsRecViewHolder(@NonNull View itemView) {
             super(itemView);
             dishIcon = itemView.findViewById(R.id.order_dish_icon);
             dishName = itemView.findViewById(R.id.order_dish_title);
             dishPrice = itemView.findViewById(R.id.order_dish_price);
+            removeBtn = itemView.findViewById(R.id.order_remove_dish_btn);
         }
     }
 }

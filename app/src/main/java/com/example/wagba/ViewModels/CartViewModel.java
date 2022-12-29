@@ -23,5 +23,6 @@ public class CartViewModel extends ViewModel {
     public void addToCart(DishModel dish){
         CartRepo.getInstance().addToCart(dish);
     }
+    public void removeFromCart(String dishID){CartRepo.getInstance().removeFromCart(dishID);}
 }
 
