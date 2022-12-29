@@ -130,28 +130,24 @@
                     android:id="@+id/basket_total"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="basket_total"
                     android:textColor="#636363" />
 
                 <TextView
                     android:id="@+id/delivery_fee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="delivery_fee"
                     android:textColor="#636363" />
 
                 <TextView
                     android:id="@+id/service_fee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="service_fee"
                     android:textColor="#636363" />
 
                 <TextView
                     android:id="@+id/total"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="total"
                     android:textColor="#636363"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -177,7 +173,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/layout_border"
                 android:padding="20sp"
-                android:text="Delivery Address"
                 android:textSize="16sp" />
         </LinearLayout>
 

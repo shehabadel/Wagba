@@ -74,7 +74,7 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent  = new Intent(getActivity(), PaymentActivity.class);
-                //TODO put extra the payment model
+                intent.putExtra("cart",cart);
                 startActivity(intent);
             }
         });
@@ -86,6 +86,16 @@ public class CartFragment extends Fragment {
             public void onChanged(CartModel cartModel) {
                 cartItemsAdapter.notifyDataSetChanged();
                 cartModel.calculateTotalPrice();
+                /**
+                 * Updating the CartModel that will be passed
+                 * to the PaymentActivity
+                 * */
+                cart = new CartModel();
+                cart.setCartItems(cartModel.getCartItems());
+                cart.setTotalPrice(cartModel.getTotalPrice());
+                /**
+                 * Populating Total TextViews.
+                 * */
                 float cartTotal = cartModel.getTotalPrice();
                 basketTotal.setText(Float.toString(cartTotal) +" EGP");
                 cartTotalTxt.setText(Float.toString(cartTotal)+" EGP");

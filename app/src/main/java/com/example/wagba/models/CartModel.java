@@ -9,12 +9,21 @@ public class CartModel implements Parcelable {
     ArrayList<DishModel> cartItems = new ArrayList<>();
     float totalPrice;
 
+    public CartModel(){}
+
+    public CartModel(ArrayList<DishModel> cartItems){
+        this.cartItems=cartItems;
+    }
+    public CartModel(ArrayList<DishModel> cartItems, float totalPrice) {
+        this.cartItems = cartItems;
+        this.totalPrice = totalPrice;
+    }
+
     protected CartModel(Parcel in) {
         cartItems = in.createTypedArrayList(DishModel.CREATOR);
         totalPrice = in.readFloat();
     }
 
-    public CartModel(){}
     public static final Creator<CartModel> CREATOR = new Creator<CartModel>() {
         @Override
         public CartModel createFromParcel(Parcel in) {
@@ -27,11 +36,11 @@ public class CartModel implements Parcelable {
         }
     };
 
-    public CartModel(ArrayList<DishModel> cartItems){
-        this.cartItems=cartItems;
-    }
-    public CartModel(ArrayList<DishModel> cartItems, float totalPrice) {
+    public void setCartItems(ArrayList<DishModel> cartItems) {
         this.cartItems = cartItems;
+    }
+
+    public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -41,6 +50,18 @@ public class CartModel implements Parcelable {
             sum+=cartItems.get(i).getDishPrice();
         }
         this.totalPrice=sum;
+    }
+    public ArrayList<DishModel> getCartItems() {
+        return cartItems;
+    }
+    public void addDishToCart(DishModel dish){
+        this.cartItems.add(dish);
+    }
+    public float getTotalPrice() {
+        return totalPrice;
+    }
+    public void clearDishes(){
+        this.cartItems.clear();
     }
 
     @Override
@@ -52,19 +73,5 @@ public class CartModel implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeTypedList(cartItems);
         parcel.writeFloat(totalPrice);
-    }
-
-    public ArrayList<DishModel> getCartItems() {
-        return cartItems;
-    }
-
-    public void addDishToCart(DishModel dish){
-        this.cartItems.add(dish);
-    }
-    public float getTotalPrice() {
-        return totalPrice;
-    }
-    public void clearDishes(){
-        this.cartItems.clear();
     }
 }
