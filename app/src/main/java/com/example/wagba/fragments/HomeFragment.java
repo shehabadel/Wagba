@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +112,6 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
             orderModels.add(new OrderModel(
                     restaurantNames[i],
                     Integer.toString(orderNo),
-                    "Order summary where alot of things were bought",
                     new Date(),
                     dishMod,
                     totalPrice,

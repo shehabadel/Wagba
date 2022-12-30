@@ -3,7 +3,6 @@ package com.example.wagba;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +30,7 @@ public class OrderActivity extends AppCompatActivity {
 
         restaurantIcon.setImageResource(R.drawable.ic_baseline_restaurant_24);
         restaurantName.setText(order.getRestaurantName());
-        orderNumber.setText(order.getOrderNumber().toString());
+        orderNumber.setText(order.getOrderID().toString());
         orderDate.setText(new Date().toString());
         orderTotalPrice.setText(Float.toString(order.getOrderTotalPrice()));
         orderSummary.setText(order.getOrderSummary());

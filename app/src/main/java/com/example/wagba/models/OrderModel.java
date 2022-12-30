@@ -3,21 +3,20 @@ package com.example.wagba.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class OrderModel implements Parcelable {
-    String restaurantName,orderNumber,orderSummary, orderDetails;
+    String restaurantName;
+    String orderID;
     Date orderDate;
     ArrayList<DishModel> orderItems = new ArrayList<>();
     float orderTotalPrice;
     Status orderStatus;
 
-    public OrderModel(String restaurantName, String orderNumber, String orderSummary, Date orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice) {
+    public OrderModel(String restaurantName, String orderID, Date orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice) {
         this.restaurantName = restaurantName;
-        this.orderNumber = orderNumber;
-        this.orderSummary = orderSummary;
+        this.orderID = orderID;
         Date copiedDate = new Date();
         this.orderDate=copiedDate;
         this.orderItems = orderItems;
@@ -27,10 +26,9 @@ public class OrderModel implements Parcelable {
         this.orderItems = copiedDishModel;
     }
 
-    public OrderModel(String restaurantName, String orderNumber, String orderSummary, Date orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice, Status orderStatus) {
+    public OrderModel(String restaurantName, String orderID, Date orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice, Status orderStatus) {
         this.restaurantName = restaurantName;
-        this.orderNumber = orderNumber;
-        this.orderSummary = orderSummary;
+        this.orderID = orderID;
         Date copiedDate = new Date();
         this.orderDate=copiedDate;
         this.orderItems = orderItems;
@@ -44,9 +42,7 @@ public class OrderModel implements Parcelable {
 
     protected OrderModel(Parcel in) {
         restaurantName = in.readString();
-        orderNumber = in.readString();
-        orderSummary = in.readString();
-        orderDetails = in.readString();
+        orderID = in.readString();
         orderItems = in.createTypedArrayList(DishModel.CREATOR);
         orderTotalPrice = in.readFloat();
     }
@@ -54,9 +50,7 @@ public class OrderModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(restaurantName);
-        dest.writeString(orderNumber);
-        dest.writeString(orderSummary);
-        dest.writeString(orderDetails);
+        dest.writeString(orderID);
         dest.writeTypedList(orderItems);
         dest.writeFloat(orderTotalPrice);
     }
@@ -82,12 +76,8 @@ public class OrderModel implements Parcelable {
         return restaurantName;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public String getOrderSummary() {
-        return orderSummary;
+    public String getOrderID() {
+        return orderID;
     }
 
     public Date getOrderDate() {
@@ -108,7 +98,4 @@ public class OrderModel implements Parcelable {
     }
 
 
-    public String getOrderDetails() {
-        return orderDetails;
-    }
 }

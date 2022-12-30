@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wagba.R;
 import com.example.wagba.interfaces.IOrderRecyclerView;
 import com.example.wagba.models.OrderModel;
-import com.example.wagba.models.RestaurantModel;
 
 import java.util.ArrayList;
 
@@ -52,7 +51,7 @@ public class PreviousOrdersRecViewAdapter extends RecyclerView.Adapter<PreviousO
         holder.restaurantIcon.setImageResource(R.drawable.ic_baseline_restaurant_24);
         holder.restaurantName.setText(orderModels.get(position).getRestaurantName());
         holder.orderDate.setText(orderModels.get(position).getOrderDate().toString());
-        holder.orderNumber.setText(orderModels.get(position).getOrderNumber());
+        holder.orderNumber.setText(orderModels.get(position).getOrderID());
         holder.orderTotalPrice.setText(Float.toString(orderModels.get(position).getOrderTotalPrice()));
     }
 
