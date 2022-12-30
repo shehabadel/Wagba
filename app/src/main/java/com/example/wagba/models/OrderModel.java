@@ -16,6 +16,30 @@ public class OrderModel implements Parcelable {
     float orderTotalPrice;
     Status orderStatus;
 
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public void setOrderItems(ArrayList<DishModel> orderItems) {
+        this.orderItems.addAll(orderItems);
+    }
+
+    public String getOrderPayMethod() {
+        return orderPayMethod;
+    }
+
+    public void setOrderPayMethod(String orderPayMethod) {
+        this.orderPayMethod = orderPayMethod;
+    }
+
+    public void setOrderStatus(Status orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     public OrderModel(String deliveryAddress, String orderID, String orderDate, ArrayList<DishModel> orderItems, String orderPayMethod, String orderGate, float orderTotalPrice, Status orderStatus) {
         this.deliveryAddress = deliveryAddress;
         this.orderID = orderID;
@@ -27,6 +51,21 @@ public class OrderModel implements Parcelable {
         this.orderStatus = orderStatus;
     }
 
+    public void setOrderTotalPrice(float orderTotalPrice) {
+        this.orderTotalPrice = orderTotalPrice;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getOrderGate() {
+        return orderGate;
+    }
+
+    public void setOrderGate(String orderGate) {
+        this.orderGate = orderGate;
+    }
 
     public OrderModel(CartModel cartModel, String deliveryAddress, String orderDate, String orderPayMethod, String orderGate){
         this.orderItems=cartModel.getCartItems();
@@ -108,9 +147,11 @@ public class OrderModel implements Parcelable {
 
 
     public Status getOrderStatus() {
-        return orderStatus;
+        return this.orderStatus;
     }
-
+public String getOrderStatusString(){
+        return this.orderStatus.toString();
+}
 
     @Override
     public int describeContents() {

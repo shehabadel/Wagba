@@ -47,6 +47,8 @@ public class OrderRepo {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 orderModel = snapshot.getValue(OrderModel.class);
+                orderModel.setOrderID(snapshot.getKey());
+                orderModel.setOrderStatus(Status.valueOf(snapshot.child("orderStatus").getValue().toString()));
                 order.setValue(orderModel);
             }
             @Override

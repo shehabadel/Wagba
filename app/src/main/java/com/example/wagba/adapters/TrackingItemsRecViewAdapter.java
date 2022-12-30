@@ -28,7 +28,7 @@ public class TrackingItemsRecViewAdapter extends RecyclerView.Adapter<TrackingIt
     @Override
     public TrackingItemsRecViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view  = inflater.inflate(R.layout.dish_item,parent,false);
+        View view  = inflater.inflate(R.layout.tracking_item,parent,false);
 
         return new TrackingItemsRecViewHolder(view);
     }
@@ -50,9 +50,9 @@ public class TrackingItemsRecViewAdapter extends RecyclerView.Adapter<TrackingIt
         ImageView dishIcon;
         public TrackingItemsRecViewHolder(@NonNull View itemView) {
             super(itemView);
-            dishIcon = itemView.findViewById(R.id.order_dish_icon);
-            dishName = itemView.findViewById(R.id.order_dish_title);
-            dishPrice = itemView.findViewById(R.id.order_dish_price);
+            dishIcon = itemView.findViewById(R.id.item_dish_icon);
+            dishName = itemView.findViewById(R.id.item_dish_title);
+            dishPrice = itemView.findViewById(R.id.item_dish_price);
         }
     }
 }
