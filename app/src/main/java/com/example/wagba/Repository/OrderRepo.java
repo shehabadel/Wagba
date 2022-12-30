@@ -1,9 +1,12 @@
 package com.example.wagba.Repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.wagba.models.OrderModel;
+import com.example.wagba.models.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 public class OrderRepo {
     static OrderRepo instance;
@@ -31,8 +36,8 @@ public class OrderRepo {
         order.setValue(orderModel);
         return order;
     }
-    public void createOrder(OrderModel order){
-        pushOrder(order);
+    public boolean createOrder(OrderModel order){
+        return pushOrder(order);
     }
 
     private void loadOrder() {
@@ -51,10 +56,45 @@ public class OrderRepo {
         });
     }
 
-    private void pushOrder(OrderModel order) {
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference orderRef = db.child("users").child(currentUser).child("order");
-        orderRef.setValue(order);
+    private boolean pushOrder(OrderModel newOrder) {
+        boolean orderStatus=canIMakeOrder();
+        boolean orderMade=false;
+        loadOrder();
+        /**
+         * Create a new order when there is no current order,
+         * or the current order's status is completed.
+         * */
+        try{
+            if(orderStatus) {
+                DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference orderRef = db.child("users").child(currentUser).child("order");
+                orderRef.setValue(newOrder);
+                orderMade = true;
+            }else{
+                orderMade=false;
+            }
+        }catch(Exception e){
+            Log.e("OrderRepo-Push",e.getMessage());
+        }
+        return orderMade;
+    }
+    /**
+     * Called in loadOrder, check if the current order status is completed then
+     * add it to the previous orders node.
+     * */
+    private void addToPreviousOrders(OrderModel prevOrder){
 
+    }
+    /**
+     * Used to check the availability to make an order
+    * */
+    private boolean canIMakeOrder(){
+        if(orderModel==null){
+            return true;
+        }else if(orderModel.getOrderStatus()==Status.COMPLETED){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

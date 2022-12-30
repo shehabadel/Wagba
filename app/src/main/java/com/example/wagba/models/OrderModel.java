@@ -7,18 +7,40 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class OrderModel implements Parcelable {
-    String restaurantName;
+    String deliveryAddress;
     String orderID;
-    Date orderDate;
+    String orderDate;
     ArrayList<DishModel> orderItems = new ArrayList<>();
+    String orderPayMethod;
+    String orderGate;
     float orderTotalPrice;
     Status orderStatus;
 
-    public OrderModel(String restaurantName, String orderID, Date orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice) {
-        this.restaurantName = restaurantName;
+    public OrderModel(String deliveryAddress, String orderID, String orderDate, ArrayList<DishModel> orderItems, String orderPayMethod, String orderGate, float orderTotalPrice, Status orderStatus) {
+        this.deliveryAddress = deliveryAddress;
         this.orderID = orderID;
-        Date copiedDate = new Date();
-        this.orderDate=copiedDate;
+        this.orderDate = orderDate;
+        this.orderItems = orderItems;
+        this.orderPayMethod = orderPayMethod;
+        this.orderGate = orderGate;
+        this.orderTotalPrice = orderTotalPrice;
+        this.orderStatus = orderStatus;
+    }
+
+
+    public OrderModel(CartModel cartModel, String deliveryAddress, String orderDate, String orderPayMethod, String orderGate){
+        this.orderItems=cartModel.getCartItems();
+        this.orderTotalPrice=cartModel.getTotalPrice();
+        this.orderStatus=Status.PLACED;
+        this.deliveryAddress=deliveryAddress;
+        this.orderDate=orderDate;
+        this.orderPayMethod=orderPayMethod;
+        this.orderGate=orderGate;
+    }
+    public OrderModel(String deliveryAddress, String orderID, String orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice) {
+        this.deliveryAddress = deliveryAddress;
+        this.orderID = orderID;
+        this.orderDate=orderDate;
         this.orderItems = orderItems;
         this.orderTotalPrice = orderTotalPrice;
         ArrayList<DishModel> copiedDishModel = new ArrayList<>();
@@ -26,11 +48,10 @@ public class OrderModel implements Parcelable {
         this.orderItems = copiedDishModel;
     }
 
-    public OrderModel(String restaurantName, String orderID, Date orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice, Status orderStatus) {
-        this.restaurantName = restaurantName;
+    public OrderModel(String deliveryAddress, String orderID, String orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice, Status orderStatus) {
+        this.deliveryAddress = deliveryAddress;
         this.orderID = orderID;
-        Date copiedDate = new Date();
-        this.orderDate=copiedDate;
+        this.orderDate=orderDate;
         this.orderItems = orderItems;
         this.orderTotalPrice = orderTotalPrice;
         this.orderStatus = orderStatus;
@@ -39,29 +60,18 @@ public class OrderModel implements Parcelable {
         this.orderItems = copiedDishModel;
     }
 
-
-    protected OrderModel(Parcel in) {
-        restaurantName = in.readString();
-        orderID = in.readString();
-        orderItems = in.createTypedArrayList(DishModel.CREATOR);
-        orderTotalPrice = in.readFloat();
-    }
-
     public OrderModel() {
 
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(restaurantName);
-        dest.writeString(orderID);
-        dest.writeTypedList(orderItems);
-        dest.writeFloat(orderTotalPrice);
-    }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    protected OrderModel(Parcel in) {
+        deliveryAddress = in.readString();
+        orderID = in.readString();
+        orderItems = in.createTypedArrayList(DishModel.CREATOR);
+        orderPayMethod = in.readString();
+        orderGate = in.readString();
+        orderTotalPrice = in.readFloat();
     }
 
     public static final Creator<OrderModel> CREATOR = new Creator<OrderModel>() {
@@ -76,15 +86,15 @@ public class OrderModel implements Parcelable {
         }
     };
 
-    public String getRestaurantName() {
-        return restaurantName;
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
 
     public String getOrderID() {
         return orderID;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
@@ -102,4 +112,19 @@ public class OrderModel implements Parcelable {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(deliveryAddress);
+        parcel.writeString(orderID);
+        parcel.writeTypedList(orderItems);
+        parcel.writeString(orderPayMethod);
+        parcel.writeString(orderGate);
+        parcel.writeFloat(orderTotalPrice);
+        parcel.writeString(orderDate);
+    }
 }

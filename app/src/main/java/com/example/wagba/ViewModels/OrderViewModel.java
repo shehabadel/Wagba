@@ -21,7 +21,7 @@ public class OrderViewModel extends ViewModel {
     public LiveData<OrderModel> getOrder(){
         return order;
     }
-    public void createOrder(OrderModel order){
-        OrderRepo.getInstance().createOrder(order);
+    public boolean createOrder(OrderModel order){
+        return OrderRepo.getInstance().createOrder(order);
     }
 }

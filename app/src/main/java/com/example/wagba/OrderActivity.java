@@ -29,7 +29,7 @@ public class OrderActivity extends AppCompatActivity {
         orderDetails = findViewById(R.id.order_details);
 
         restaurantIcon.setImageResource(R.drawable.ic_baseline_restaurant_24);
-        restaurantName.setText(order.getRestaurantName());
+        restaurantName.setText(order.getDeliveryAddress());
         orderNumber.setText(order.getOrderID().toString());
         orderDate.setText(new Date().toString());
         orderTotalPrice.setText(Float.toString(order.getOrderTotalPrice()));

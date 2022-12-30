@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
             orderModels.add(new OrderModel(
                     restaurantNames[i],
                     Integer.toString(orderNo),
-                    new Date(),
+                    "2022-14-12",
                     dishMod,
                     totalPrice,
                     Status.COMPLETED
