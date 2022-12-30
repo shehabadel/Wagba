@@ -33,7 +33,6 @@ public class OrderActivity extends AppCompatActivity {
         orderNumber.setText(order.getOrderID().toString());
         orderDate.setText(new Date().toString());
         orderTotalPrice.setText(Float.toString(order.getOrderTotalPrice()));
-        orderSummary.setText(order.getOrderSummary());
         orderDetails.setText("A lot of stuff were bought yesterday. Lorem posum bolossum ");
     }
 }

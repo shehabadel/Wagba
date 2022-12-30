@@ -21,5 +21,6 @@ public class PaymentActivity extends AppCompatActivity {
         cart = getIntent().getParcelableExtra("cart");
        basketTotal.setText(Float.toString(cart.getTotalPrice()));
        total.setText(Float.toString(cart.getTotalPrice()));
+
     }
 }

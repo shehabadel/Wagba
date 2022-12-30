@@ -9,12 +9,16 @@ public class DishModel implements Parcelable {
     String dishID;
     String dishName;
     int dishPrice;
-
-    public void setDishID(String dishID) {
-        this.dishID = dishID;
-    }
-
     String dishImage;
+    String restaurantName;
+
+    public DishModel(String dishID, String dishName, int dishPrice, String restaurantName, String dishImage) {
+        this.dishID = dishID;
+        this.dishName = dishName;
+        this.dishPrice = dishPrice;
+        this.restaurantName = restaurantName;
+        this.dishImage = dishImage;
+    }
 
     public DishModel(){}
     public DishModel(String dishName, int dishPrice, String dishImage) {
@@ -78,5 +82,17 @@ public class DishModel implements Parcelable {
 
     public String getDishID() {
         return dishID;
+    }
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+
+    public void setDishID(String dishID) {
+        this.dishID = dishID;
     }
 }
