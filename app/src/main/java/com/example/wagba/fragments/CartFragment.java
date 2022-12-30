@@ -57,6 +57,9 @@ public class CartFragment extends Fragment {
         checkoutBtn = view.findViewById(R.id.checkout_btn);
         basketTotal = view.findViewById(R.id.basket_total);
         cartTotalTxt = view.findViewById(R.id.total);
+        cartItemsRecView = view.findViewById(R.id.cart_items_rcv);
+        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+
         checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +68,7 @@ public class CartFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        cart = new CartModel();
         cartViewModel.init();
         cartViewModel.getCart().observe(getViewLifecycleOwner(), new Observer<CartModel>() {
             @Override
@@ -76,27 +79,31 @@ public class CartFragment extends Fragment {
                  * Updating the CartModel that will be passed
                  * to the PaymentActivity
                  * */
-                cart = new CartModel();
                 cart.setCartItems(cartModel.getCartItems());
                 cart.setTotalPrice(cartModel.getTotalPrice());
                 setCheckoutBtnState();
                 /**
                  * Populating Total TextViews.
                  * */
-                float cartTotal = cartModel.getTotalPrice();
+                float cartTotal = cart.getTotalPrice();
                 basketTotal.setText(Float.toString(cartTotal) +" EGP");
                 cartTotalTxt.setText(Float.toString(cartTotal)+" EGP");
             }
         });
-        cartItemsRecView = view.findViewById(R.id.cart_items_rcv);
         cartItemsAdapter = new CartItemsRecViewAdapter(
                 view.getContext(),
-                cartViewModel.getCart().getValue().getCartItems())
-        ;
+                cartViewModel.getCart().getValue().getCartItems());
         cartItemsRecView.setAdapter(cartItemsAdapter);
         cartItemsRecView.setLayoutManager(new LinearLayoutManager(view.getContext(),RecyclerView.VERTICAL,false));
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     /**
      * Set the Checkout button to be clickable
      * if there are items in the cart.

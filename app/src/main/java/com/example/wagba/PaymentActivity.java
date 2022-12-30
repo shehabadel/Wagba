@@ -3,6 +3,7 @@ package com.example.wagba;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wagba.R;
+import com.example.wagba.ViewModels.CartViewModel;
 import com.example.wagba.ViewModels.OrderViewModel;
+import com.example.wagba.fragments.HomeFragment;
 import com.example.wagba.models.CartModel;
 import com.example.wagba.models.OrderModel;
 
@@ -22,6 +25,7 @@ public class PaymentActivity extends AppCompatActivity {
     Button placeOrderBtn;
     CartModel cart;
     OrderViewModel orderViewModel;
+    CartViewModel cartViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,8 @@ public class PaymentActivity extends AppCompatActivity {
         placeOrderBtn = findViewById(R.id.place_order_btn);
 
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
+        cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+
         cart = getIntent().getParcelableExtra("cart");
         basketTotal.setText(Float.toString(cart.getTotalPrice()));
         total.setText(Float.toString(cart.getTotalPrice()));
@@ -43,6 +49,10 @@ public class PaymentActivity extends AppCompatActivity {
                 boolean orderCreateStatus = orderViewModel.createOrder(order);
                 if(orderCreateStatus){
                     Toast.makeText(getApplicationContext(), "An order is created successfully!", Toast.LENGTH_SHORT).show();
+                    //cartViewModel.clearCart();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "An order wasn't created, perhaps there is an order running", Toast.LENGTH_SHORT).show();
                 }

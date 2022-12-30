@@ -52,6 +52,14 @@ public class CartRepo {
         removeItem(dishID);
 
     }
+    public void clearCart(){
+        /**
+         * Resets a cart upon creating a new order
+         * */
+        cart.setValue(null);
+        cartModel=null;
+        deleteCart();
+    }
     private void loadCart() {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query cartQuery  = db.child("users").child(currentUser).child("cart");
@@ -59,7 +67,9 @@ public class CartRepo {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // To avoid populating duplicate data on change
-                cartModel.clearDishes();
+                if(cartModel!=null){
+                    cartModel.clearDishes();
+                }
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     String dishID = snap.getKey();
                     DishModel dish = snap.getValue(DishModel.class);
@@ -96,5 +106,10 @@ public class CartRepo {
 
             }
         });
+    }
+    private void deleteCart(){
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference cartRef  = db.child("users").child(currentUser).child("cart");
+        cartRef.setValue(null);
     }
 }

@@ -22,8 +22,8 @@ public class OrderRepo {
     private MutableLiveData<OrderModel> order = new MutableLiveData<>();
     private FirebaseAuth auth =  FirebaseAuth.getInstance();
     String currentUser = auth.getCurrentUser().getUid();
-
     OrderModel orderModel = new OrderModel();
+
     public static OrderRepo getInstance(){
         if(instance==null){
             instance = new OrderRepo();
@@ -57,9 +57,9 @@ public class OrderRepo {
     }
 
     private boolean pushOrder(OrderModel newOrder) {
+        loadOrder();
         boolean orderStatus=canIMakeOrder();
         boolean orderMade=false;
-        loadOrder();
         /**
          * Create a new order when there is no current order,
          * or the current order's status is completed.
@@ -71,6 +71,11 @@ public class OrderRepo {
                 orderRef.setValue(newOrder);
                 orderMade = true;
             }else{
+                try{
+                    Log.d("Ordestat",orderModel.getOrderStatus().toString());
+                }catch(Exception e){
+                    Log.d("orderexcp",e.getMessage());
+                }
                 orderMade=false;
             }
         }catch(Exception e){
@@ -89,9 +94,9 @@ public class OrderRepo {
      * Used to check the availability to make an order
     * */
     private boolean canIMakeOrder(){
-        if(orderModel==null){
+        if(order.getValue()==null){
             return true;
-        }else if(orderModel.getOrderStatus()==Status.COMPLETED){
+        }else if(order.getValue().getOrderStatus()==Status.COMPLETED){
             return true;
         }else{
             return false;
