@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wagba.PaymentActivity;
 import com.example.wagba.R;
@@ -47,19 +46,6 @@ public class CartFragment extends Fragment {
 
     }
 
-    private void setupDishModel(){
-        //TODO fetch data from firebase and populate the orderDishes
-        String[] dishNames = getResources().getStringArray(R.array.restaurant_dishes);
-
-        for(int i=0; i< dishNames.length; i++){
-            int price = (int)(rand.nextInt(100-20)+20);
-            cartDishes.add(new DishModel(
-                    dishNames[i],
-                    price,
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA4DMgrZm0yjXZ3Sn3lCXjqg8Q6AHqEjVe0f54zGj7&s"
-            ));
-        }
-    }
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -78,7 +64,6 @@ public class CartFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        setupDishModel();
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
         cartViewModel.init();
         cartViewModel.getCart().observe(getViewLifecycleOwner(), new Observer<CartModel>() {
@@ -93,6 +78,7 @@ public class CartFragment extends Fragment {
                 cart = new CartModel();
                 cart.setCartItems(cartModel.getCartItems());
                 cart.setTotalPrice(cartModel.getTotalPrice());
+                setCheckoutBtnState();
                 /**
                  * Populating Total TextViews.
                  * */
@@ -109,5 +95,16 @@ public class CartFragment extends Fragment {
         cartItemsRecView.setAdapter(cartItemsAdapter);
         cartItemsRecView.setLayoutManager(new LinearLayoutManager(view.getContext(),RecyclerView.VERTICAL,false));
         return view;
+    }
+    /**
+     * Set the Checkout button to be clickable
+     * if there are items in the cart.
+     * */
+    private void setCheckoutBtnState(){
+        if(cart.getCartItems().size()>0){
+            checkoutBtn.setEnabled(true);
+        }else{
+            checkoutBtn.setEnabled(false);
+        }
     }
 }
