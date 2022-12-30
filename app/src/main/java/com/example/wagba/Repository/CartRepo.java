@@ -56,8 +56,12 @@ public class CartRepo {
         /**
          * Resets a cart upon creating a new order
          * */
+
         cart.setValue(null);
-        cartModel=null;
+        /***
+         * The next line is a nuclear bomb, keep it commented
+         */
+        //cartModel=null;
         deleteCart();
     }
     private void loadCart() {

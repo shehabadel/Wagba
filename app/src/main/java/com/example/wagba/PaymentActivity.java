@@ -49,7 +49,7 @@ public class PaymentActivity extends AppCompatActivity {
                 boolean orderCreateStatus = orderViewModel.createOrder(order);
                 if(orderCreateStatus){
                     Toast.makeText(getApplicationContext(), "An order is created successfully!", Toast.LENGTH_SHORT).show();
-                    //cartViewModel.clearCart();
+                    cartViewModel.clearCart();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
                     finish();

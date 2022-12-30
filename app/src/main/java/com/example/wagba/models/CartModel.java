@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class CartModel implements Parcelable {
     ArrayList<DishModel> cartItems = new ArrayList<>();
@@ -62,6 +64,17 @@ public class CartModel implements Parcelable {
     }
     public void clearDishes(){
         this.cartItems.clear();
+    }
+    public void copyCartItems(ArrayList<DishModel> cartItems){
+        for(int i=0; i< cartItems.size(); i++){
+            DishModel dish = new DishModel();
+            dish.setDishImage(cartItems.get(i).getDishImage());
+            dish.setDishName(cartItems.get(i).getDishName());
+            dish.setDishID(cartItems.get(i).getDishID());
+            dish.setDishPrice(cartItems.get(i).getDishPrice());
+            dish.setRestaurantName(cartItems.get(i).getRestaurantName());
+            this.cartItems.add(dish);
+        }
     }
 
     @Override

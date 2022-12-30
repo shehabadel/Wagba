@@ -46,8 +46,6 @@ public class CartFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,16 +68,25 @@ public class CartFragment extends Fragment {
         });
         cart = new CartModel();
         cartViewModel.init();
+
+        /**
+         * TODO-Technical Debt: Refactor the following considering Fragment Lifecycle.
+         * Like wrapping getting data in onResume.
+         * */
         cartViewModel.getCart().observe(getViewLifecycleOwner(), new Observer<CartModel>() {
             @Override
             public void onChanged(CartModel cartModel) {
+                /**
+                 * Avoid population of duplicate data.
+                 * */
+                cart.clearDishes();
                 cartItemsAdapter.notifyDataSetChanged();
                 cartModel.calculateTotalPrice();
                 /**
                  * Updating the CartModel that will be passed
                  * to the PaymentActivity
                  * */
-                cart.setCartItems(cartModel.getCartItems());
+                cart.copyCartItems(cartModel.getCartItems());
                 cart.setTotalPrice(cartModel.getTotalPrice());
                 setCheckoutBtnState();
                 /**
@@ -92,16 +99,10 @@ public class CartFragment extends Fragment {
         });
         cartItemsAdapter = new CartItemsRecViewAdapter(
                 view.getContext(),
-                cartViewModel.getCart().getValue().getCartItems());
+                cart.getCartItems());
         cartItemsRecView.setAdapter(cartItemsAdapter);
         cartItemsRecView.setLayoutManager(new LinearLayoutManager(view.getContext(),RecyclerView.VERTICAL,false));
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 
     /**

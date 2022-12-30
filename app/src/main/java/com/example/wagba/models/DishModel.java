@@ -11,6 +11,19 @@ public class DishModel implements Parcelable {
     int dishPrice;
     String dishImage;
     String restaurantName;
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
+    }
+
+    public void setDishPrice(int dishPrice) {
+        this.dishPrice = dishPrice;
+    }
+
+    public void setDishImage(String dishImage) {
+        this.dishImage = dishImage;
+    }
+
+
 
     public DishModel(String dishID, String dishName, int dishPrice, String restaurantName, String dishImage) {
         this.dishID = dishID;
