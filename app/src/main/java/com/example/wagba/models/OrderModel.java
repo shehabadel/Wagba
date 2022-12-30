@@ -47,6 +47,10 @@ public class OrderModel implements Parcelable {
         orderTotalPrice = in.readFloat();
     }
 
+    public OrderModel() {
+
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(restaurantName);
