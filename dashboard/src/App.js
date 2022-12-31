@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { Container, Row, Col } from "reactstrap";
 import { doc, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
@@ -11,6 +12,7 @@ import {
 } from "reactfire";
 import { db } from "./database/database";
 import { onValue, ref } from "firebase/database";
+import Order from "./components/Order";
 function App() {
   //const firestoreInstance = getFirestore(useFirebaseApp());
   const [usersOrders, setUsersOrders] = useState([]);
@@ -23,13 +25,27 @@ function App() {
       });
       setUsersOrders(currentOrders);
     });
-  }, []);
+  }, [usersOrders]);
   return (
     <div className="App">
       <h1>Wagba</h1>
-      {usersOrders.map((order) => (
-        <p>{JSON.stringify(order)}</p>
-      ))}
+      <Container>
+        <Row>
+          {usersOrders.map((order) => (
+            <Col sm={4}>
+              <Order
+                deliveryAddress={order.deliveryAddress}
+                orderDate={order.orderDate}
+                orderItems={order.orderItems}
+                orderStatus={order.orderStatus}
+                orderGate={order.orderGate}
+                orderTotalPrice={order.orderTotalPrice}
+                orderID={order.orderID}
+              ></Order>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 }

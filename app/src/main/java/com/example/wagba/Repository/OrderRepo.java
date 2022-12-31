@@ -78,6 +78,7 @@ public class OrderRepo {
             if(orderStatus) {
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference orderRef = db.child("users").child(currentUser).child("order");
+
                 orderRef.setValue(newOrder);
                 orderMade = true;
             }else{
