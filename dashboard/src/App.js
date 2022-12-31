@@ -21,26 +21,30 @@ function App() {
     var currentOrders = [];
     return onValue(query, (snapshot) => {
       snapshot.forEach((user) => {
-        currentOrders.push(user.child("order").toJSON());
+        currentOrders.push({
+          user: user.key,
+          orderData: user.child("order").toJSON(),
+        });
       });
       setUsersOrders(currentOrders);
     });
   }, [usersOrders]);
   return (
     <div className="App">
-      <h1>Wagba</h1>
-      <Container>
+      <h1>Wagba Admin Dashboard</h1>
+      <Container className="mt-4">
         <Row>
           {usersOrders.map((order) => (
-            <Col sm={4}>
+            <Col sm={6}>
               <Order
-                deliveryAddress={order.deliveryAddress}
-                orderDate={order.orderDate}
-                orderItems={order.orderItems}
-                orderStatus={order.orderStatus}
-                orderGate={order.orderGate}
-                orderTotalPrice={order.orderTotalPrice}
-                orderID={order.orderID}
+                user={order.user}
+                deliveryAddress={order.orderData.deliveryAddress}
+                orderDate={order.orderData.orderDate}
+                orderItems={order.orderData.orderItems}
+                orderStatus={order.orderData.orderStatus}
+                orderGate={order.orderData.orderGate}
+                orderTotalPrice={order.orderData.orderTotalPrice}
+                orderID={order.orderData.orderID}
               ></Order>
             </Col>
           ))}

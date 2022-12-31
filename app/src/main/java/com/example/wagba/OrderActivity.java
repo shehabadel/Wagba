@@ -31,7 +31,7 @@ public class OrderActivity extends AppCompatActivity {
         restaurantIcon.setImageResource(R.drawable.ic_baseline_restaurant_24);
         restaurantName.setText(order.getDeliveryAddress());
         orderNumber.setText(order.getOrderID().toString());
-        orderDate.setText(new Date().toString());
+        orderDate.setText(order.getOrderDate());
         orderTotalPrice.setText(Float.toString(order.getOrderTotalPrice()));
         orderDetails.setText("A lot of stuff were bought yesterday. Lorem posum bolossum ");
     }
