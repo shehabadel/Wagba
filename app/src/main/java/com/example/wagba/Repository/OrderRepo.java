@@ -15,11 +15,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
 public class OrderRepo {
     static OrderRepo instance;
     private MutableLiveData<OrderModel> order = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<OrderModel>> previousOrdersLive = new MutableLiveData<>();
+    private ArrayList<OrderModel> prevOrdersModels = new ArrayList<OrderModel>();
     private FirebaseAuth auth =  FirebaseAuth.getInstance();
     String currentUser = auth.getCurrentUser().getUid();
     OrderModel orderModel = new OrderModel();
@@ -35,6 +37,12 @@ public class OrderRepo {
         loadOrder();
         order.setValue(orderModel);
         return order;
+    }
+    public MutableLiveData<ArrayList<OrderModel>> getPreviousOrdersLive(){
+        prevOrdersModels.clear();
+        getAllPrevious();
+        previousOrdersLive.setValue(prevOrdersModels);
+        return previousOrdersLive;
     }
     public boolean createOrder(OrderModel order){
         return pushOrder(order);
@@ -103,5 +111,27 @@ public class OrderRepo {
         }else{
             return false;
         }
+    }
+
+    private void getAllPrevious(){
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        Query orderQuery = db.child("users").child(currentUser).child("previousOrders");
+        orderQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                prevOrdersModels.clear();
+                for(DataSnapshot snap: snapshot.getChildren()){
+                    Log.d("PRVORDER", (String) snap.child("orderGate").getValue());
+                    OrderModel orderSnapshot = snap.getValue(OrderModel.class);
+                    orderSnapshot.setOrderID(snap.getKey());
+                    prevOrdersModels.add(orderSnapshot);
+                    previousOrdersLive.setValue(prevOrdersModels);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

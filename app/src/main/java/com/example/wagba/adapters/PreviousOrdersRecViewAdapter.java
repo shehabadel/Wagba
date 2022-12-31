@@ -49,7 +49,7 @@ public class PreviousOrdersRecViewAdapter extends RecyclerView.Adapter<PreviousO
 
         //TODO CHANGE THIS
         holder.restaurantIcon.setImageResource(R.drawable.ic_baseline_restaurant_24);
-        holder.restaurantName.setText(orderModels.get(position).getDeliveryAddress());
+        holder.restaurantName.setText(orderModels.get(position).getOrderID());
         holder.orderDate.setText(orderModels.get(position).getOrderDate().toString());
         holder.orderNumber.setText(orderModels.get(position).getOrderID());
         holder.orderTotalPrice.setText(Float.toString(orderModels.get(position).getOrderTotalPrice()));

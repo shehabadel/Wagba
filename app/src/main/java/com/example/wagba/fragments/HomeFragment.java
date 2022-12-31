@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.wagba.OrderActivity;
+import com.example.wagba.ViewModels.OrderViewModel;
 import com.example.wagba.ViewModels.RestaurantViewModel;
 import com.example.wagba.adapters.PreviousOrdersRecViewAdapter;
 import com.example.wagba.interfaces.IOrderRecyclerView;
@@ -31,8 +33,9 @@ import java.util.Date;
 import java.util.Random;
 
 public class HomeFragment extends Fragment implements IRestaurantRecyclerView, IOrderRecyclerView{
-    ArrayList<OrderModel> orderModels = new ArrayList<>();
+    //ArrayList<OrderModel> orderModels = new ArrayList<>();
     Random rand = new Random();
+
 
     /**
      * Restaurant ViewModel, Adapter, RecyclerView
@@ -43,6 +46,7 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
     /**
      * PreviousOrders ViewModel, Adapter, RecyclerView
      * */
+    OrderViewModel previousOrderViewModel;
     RecyclerView previousOrdersRecyclerView;
     PreviousOrdersRecViewAdapter prevOrdersAdapter;
     public HomeFragment() {
@@ -58,7 +62,7 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_home, container, false);
-        setupPreviousOrdersModels();
+        //setupPreviousOrdersModels();
 
         /**
          * Restaurant ViewModel, RecyclerView, Adapter initialization
@@ -89,7 +93,19 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
          * previousOrders ViewModel, RecyclerView, Adapter initialization
          **/
         previousOrdersRecyclerView = view.findViewById(R.id.previous_orders_rcv);
-        prevOrdersAdapter = new PreviousOrdersRecViewAdapter(view.getContext(), orderModels,this );
+        previousOrderViewModel= new ViewModelProvider(this).get(OrderViewModel.class);
+        previousOrderViewModel.init();
+        previousOrderViewModel.getPreviousOrders().observe(getViewLifecycleOwner(), new Observer<ArrayList<OrderModel>>() {
+            @Override
+            public void onChanged(ArrayList<OrderModel> orderModels) {
+                //Log.d("ORDERMOD",orderModels.get(0).getOrderStatus().toString());
+                prevOrdersAdapter.notifyDataSetChanged();
+            }
+        });
+        prevOrdersAdapter = new PreviousOrdersRecViewAdapter(
+                view.getContext(),
+                previousOrderViewModel.getPreviousOrders().getValue(),
+                this );
 
 
         /**
@@ -100,7 +116,7 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
 
         return view;
     }
-    private void setupPreviousOrdersModels(){
+    /*private void setupPreviousOrdersModels(){
 
         //TODO Remove this and use PreviousOrderViewModel
         String[] restaurantNames = getResources().getStringArray(R.array.restaurant_names);
@@ -119,6 +135,8 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
             ));
         }
     }
+
+     */
     @Override
     public void onItemClick(int position) {
         Intent intent  = new Intent(getActivity(), RestaurantActivity.class );
@@ -129,7 +147,7 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
     @Override
     public void onOrderItemClick(int position) {
         Intent intent = new Intent(getActivity(), OrderActivity.class);
-        intent.putExtra("previousOrder", orderModels.get(position));
+        intent.putExtra("previousOrder", previousOrderViewModel.getPreviousOrders().getValue().get(position));
         startActivity(intent);
     }
 
