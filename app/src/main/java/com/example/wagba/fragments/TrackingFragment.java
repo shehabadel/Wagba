@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wagba.R;
 import com.example.wagba.ViewModels.OrderViewModel;
@@ -23,6 +24,7 @@ import com.example.wagba.adapters.CartItemsRecViewAdapter;
 import com.example.wagba.adapters.TrackingItemsRecViewAdapter;
 import com.example.wagba.models.DishModel;
 import com.example.wagba.models.OrderModel;
+import com.example.wagba.models.Status;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -82,6 +84,9 @@ public class TrackingFragment extends Fragment {
                     orderTotalTXT.setText(Float.toString(orderModel.getOrderTotalPrice()));
                     orderDishes.addAll(orderModel.getOrderItems());
                     orderStatusTXT.setText(orderModel.getOrderStatus().toString());
+                    if(orderModel.getOrderStatus()== Status.COMPLETED){
+                        Toast.makeText(getContext(),"Your order has been completed successfully!",Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

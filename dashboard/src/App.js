@@ -21,10 +21,12 @@ function App() {
     var currentOrders = [];
     return onValue(query, (snapshot) => {
       snapshot.forEach((user) => {
-        currentOrders.push({
-          user: user.key,
-          orderData: user.child("order").toJSON(),
-        });
+        if (user.hasChild("order")) {
+          currentOrders.push({
+            user: user.key,
+            orderData: user.child("order").toJSON(),
+          });
+        }
       });
       setUsersOrders(currentOrders);
     });
@@ -34,20 +36,24 @@ function App() {
       <h1>Wagba Admin Dashboard</h1>
       <Container className="mt-4">
         <Row>
-          {usersOrders.map((order) => (
-            <Col sm={6}>
-              <Order
-                user={order.user}
-                deliveryAddress={order.orderData.deliveryAddress}
-                orderDate={order.orderData.orderDate}
-                orderItems={order.orderData.orderItems}
-                orderStatus={order.orderData.orderStatus}
-                orderGate={order.orderData.orderGate}
-                orderTotalPrice={order.orderData.orderTotalPrice}
-                orderID={order.orderData.orderID}
-              ></Order>
-            </Col>
-          ))}
+          {usersOrders.length !== 0 ? (
+            usersOrders?.map((order) => (
+              <Col sm={6}>
+                <Order
+                  user={order?.user}
+                  deliveryAddress={order?.orderData?.deliveryAddress}
+                  orderDate={order?.orderData?.orderDate}
+                  orderItems={order?.orderData?.orderItems}
+                  orderStatus={order?.orderData?.orderStatus}
+                  orderGate={order?.orderData?.orderGate}
+                  orderTotalPrice={order?.orderData?.orderTotalPrice}
+                  orderID={order?.orderData?.orderID}
+                ></Order>
+              </Col>
+            ))
+          ) : (
+            <h2>No orders at the moment!</h2>
+          )}
         </Row>
       </Container>
     </div>

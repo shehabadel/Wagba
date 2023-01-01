@@ -47,17 +47,25 @@ public class OrderRepo {
     public boolean createOrder(OrderModel order){
         return pushOrder(order);
     }
-
+/**
+ * Fetches an order to be shown in the tracking page
+ * TODO: Fix if there are null values.
+ * */
     private void loadOrder() {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query orderQuery = db.child("users").child(currentUser).child("order");
         orderQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                orderModel = snapshot.getValue(OrderModel.class);
-                orderModel.setOrderID(snapshot.getKey());
-                orderModel.setOrderStatus(Status.valueOf(snapshot.child("orderStatus").getValue().toString()));
-                order.setValue(orderModel);
+                try{
+                        orderModel = snapshot.getValue(OrderModel.class);
+                        orderModel.setOrderID(snapshot.getKey());
+                        orderModel.setOrderStatus(Status.valueOf(snapshot.child("orderStatus").getValue().toString()));
+                        order.setValue(orderModel);
+
+                }catch(Exception e){
+                    Log.e("loadOrder",e.getMessage());
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -65,7 +73,10 @@ public class OrderRepo {
             }
         });
     }
-
+/**
+ * Creates an order and pushes it to the order node of a user
+ * returns true if order is made successfully, otherwise false.
+ * */
     private boolean pushOrder(OrderModel newOrder) {
         loadOrder();
         boolean orderStatus=canIMakeOrder();
@@ -78,7 +89,6 @@ public class OrderRepo {
             if(orderStatus) {
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference orderRef = db.child("users").child(currentUser).child("order");
-
                 orderRef.setValue(newOrder);
                 orderMade = true;
             }else{
@@ -95,13 +105,6 @@ public class OrderRepo {
         return orderMade;
     }
     /**
-     * Called in loadOrder, check if the current order status is completed then
-     * add it to the previous orders node.
-     * */
-    private void addToPreviousOrders(OrderModel prevOrder){
-
-    }
-    /**
      * Used to check the availability to make an order
     * */
     private boolean canIMakeOrder(){
@@ -113,7 +116,9 @@ public class OrderRepo {
             return false;
         }
     }
-
+/**
+ * Fetches all the previous orders.
+ * */
     private void getAllPrevious(){
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query orderQuery = db.child("users").child(currentUser).child("previousOrders");
@@ -122,7 +127,6 @@ public class OrderRepo {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 prevOrdersModels.clear();
                 for(DataSnapshot snap: snapshot.getChildren()){
-                    Log.d("PRVORDER", (String) snap.child("orderGate").getValue());
                     OrderModel orderSnapshot = snap.getValue(OrderModel.class);
                     orderSnapshot.setOrderID(snap.getKey());
                     prevOrdersModels.add(orderSnapshot);

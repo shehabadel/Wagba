@@ -7,7 +7,7 @@ import {
   Container,
 } from "reactstrap";
 import { db } from "../database/database";
-import { update, ref, set, push } from "firebase/database";
+import { update, ref, set, push, remove } from "firebase/database";
 const Order = (props) => {
   const {
     user,
@@ -27,6 +27,17 @@ const Order = (props) => {
     const updateRef = ref(db, `users/${user}/order`);
     const prevOrderRef = ref(db, `users/${user}/previousOrders`);
     if (state === "COMPLETED") {
+      /**
+       * Update the current order state
+       * to completed
+       */
+      update(updateRef, {
+        orderStatus: state,
+      });
+      /**
+       * Add the current order details to
+       * the previousOrders
+       */
       push(prevOrderRef, {
         deliveryAddress: deliveryAddress,
         orderDate: orderDate,
@@ -35,6 +46,10 @@ const Order = (props) => {
         orderGate: orderGate,
         orderTotalPrice: orderTotalPrice,
       });
+      /**
+       * Remove the current order
+       */
+      remove(updateRef);
     } else {
       update(updateRef, {
         orderStatus: state,
