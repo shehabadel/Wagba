@@ -58,11 +58,12 @@ public class OrderRepo {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try{
+                    if(snapshot.exists()){
                         orderModel = snapshot.getValue(OrderModel.class);
                         orderModel.setOrderID(snapshot.getKey());
                         orderModel.setOrderStatus(Status.valueOf(snapshot.child("orderStatus").getValue().toString()));
                         order.setValue(orderModel);
-
+                    }
                 }catch(Exception e){
                     Log.e("loadOrder",e.getMessage());
                 }
@@ -108,7 +109,7 @@ public class OrderRepo {
      * Used to check the availability to make an order
     * */
     private boolean canIMakeOrder(){
-        if(order.getValue()==null){
+        if(order.getValue()==null || order.getValue().getOrderStatus()==null){
             return true;
         }else if(order.getValue().getOrderStatus()==Status.COMPLETED){
             return true;

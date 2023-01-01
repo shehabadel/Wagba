@@ -84,9 +84,6 @@ public class TrackingFragment extends Fragment {
                     orderTotalTXT.setText(Float.toString(orderModel.getOrderTotalPrice()));
                     orderDishes.addAll(orderModel.getOrderItems());
                     orderStatusTXT.setText(orderModel.getOrderStatus().toString());
-                    if(orderModel.getOrderStatus()== Status.COMPLETED){
-                        Toast.makeText(getContext(),"Your order has been completed successfully!",Toast.LENGTH_LONG).show();
-                    }
                 }
             }
         });

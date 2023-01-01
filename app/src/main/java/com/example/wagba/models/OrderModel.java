@@ -67,7 +67,7 @@ public class OrderModel implements Parcelable {
         this.orderGate = orderGate;
     }
 
-    public OrderModel(CartModel cartModel, String deliveryAddress, String orderDate, String orderPayMethod, String orderGate){
+    public OrderModel(CartModel cartModel, String deliveryAddress, String orderDate, String orderPayMethod, String orderGate, String orderID){
         this.orderItems=cartModel.getCartItems();
         this.orderTotalPrice=cartModel.getTotalPrice();
         this.orderStatus=Status.PLACED;
@@ -75,6 +75,7 @@ public class OrderModel implements Parcelable {
         this.orderDate=orderDate;
         this.orderPayMethod=orderPayMethod;
         this.orderGate=orderGate;
+        this.orderID=orderID;
     }
     public OrderModel(String deliveryAddress, String orderID, String orderDate, ArrayList<DishModel> orderItems, float orderTotalPrice) {
         this.deliveryAddress = deliveryAddress;
