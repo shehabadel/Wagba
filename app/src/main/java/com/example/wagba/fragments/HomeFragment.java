@@ -33,7 +33,6 @@ import java.util.Date;
 import java.util.Random;
 
 public class HomeFragment extends Fragment implements IRestaurantRecyclerView, IOrderRecyclerView{
-    //ArrayList<OrderModel> orderModels = new ArrayList<>();
     Random rand = new Random();
 
 
@@ -62,7 +61,6 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=  inflater.inflate(R.layout.fragment_home, container, false);
-        //setupPreviousOrdersModels();
 
         /**
          * Restaurant ViewModel, RecyclerView, Adapter initialization
@@ -98,7 +96,6 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
         previousOrderViewModel.getPreviousOrders().observe(getViewLifecycleOwner(), new Observer<ArrayList<OrderModel>>() {
             @Override
             public void onChanged(ArrayList<OrderModel> orderModels) {
-                //Log.d("ORDERMOD",orderModels.get(0).getOrderStatus().toString());
                 prevOrdersAdapter.notifyDataSetChanged();
             }
         });
@@ -116,27 +113,6 @@ public class HomeFragment extends Fragment implements IRestaurantRecyclerView, I
 
         return view;
     }
-    /*private void setupPreviousOrdersModels(){
-
-        //TODO Remove this and use PreviousOrderViewModel
-        String[] restaurantNames = getResources().getStringArray(R.array.restaurant_names);
-        ArrayList<DishModel> dishMod = new ArrayList<DishModel>();
-        dishMod.add(new DishModel("Magdonal",50, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA4DMgrZm0yjXZ3Sn3lCXjqg8Q6AHqEjVe0f54zGj7&s"));
-        for(int i=0; i<4; i++){
-            int orderNo = rand.nextInt(10-5)+5;
-            float totalPrice =(float) (rand.nextInt(500-100)+100);
-            orderModels.add(new OrderModel(
-                    restaurantNames[i],
-                    Integer.toString(orderNo),
-                    "2022-14-12",
-                    dishMod,
-                    totalPrice,
-                    Status.COMPLETED
-            ));
-        }
-    }
-
-     */
     @Override
     public void onItemClick(int position) {
         Intent intent  = new Intent(getActivity(), RestaurantActivity.class );

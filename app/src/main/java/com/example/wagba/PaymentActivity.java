@@ -18,6 +18,7 @@ import com.example.wagba.fragments.HomeFragment;
 import com.example.wagba.models.CartModel;
 import com.example.wagba.models.OrderModel;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -45,7 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Date date = new Date();
-                String orderID = "Order#"+ date.getDate();
+                String orderID = "Order#"+ new SimpleDateFormat("dd-MM-yyyy").format(new Date());
                 OrderModel order = new OrderModel(
                         cart,
                         "Ain Shams University",

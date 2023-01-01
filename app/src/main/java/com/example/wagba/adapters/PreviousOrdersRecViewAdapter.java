@@ -39,20 +39,12 @@ public class PreviousOrdersRecViewAdapter extends RecyclerView.Adapter<PreviousO
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        //Assigning values to the views we created in the recycler_view_row layout file
-        //based on the position of the recycler view
-
-        /*holder.restaurantTitle.setText(orderModels.get(position).getRestaurantName());
-        holder.restaurantCategory.setText(orderModels.get(position).getOrderNumber());
-        holder.restaurantRating.setText(Float.toString(orderModels.get(position).getOrderTotalPrice()));
-        holder.restaurantIcon.setImageResource(orderModels.get(position).getOrderStatus());*/
 
         //TODO CHANGE THIS
         holder.restaurantIcon.setImageResource(R.drawable.ic_baseline_restaurant_24);
-        holder.restaurantName.setText(orderModels.get(position).getOrderID());
         holder.orderDate.setText(orderModels.get(position).getOrderDate().toString());
         holder.orderNumber.setText(orderModels.get(position).getOrderID());
-        holder.orderTotalPrice.setText(Float.toString(orderModels.get(position).getOrderTotalPrice()));
+        holder.orderTotalPrice.setText(Float.toString(orderModels.get(position).getOrderTotalPrice())+" EGP");
     }
 
 
@@ -68,11 +60,10 @@ public class PreviousOrdersRecViewAdapter extends RecyclerView.Adapter<PreviousO
         // Kidna like in the onCreate method
 
         ImageView restaurantIcon;
-        TextView restaurantName, orderDate, orderTotalPrice, orderNumber;
+        TextView orderDate, orderTotalPrice, orderNumber;
         public MyViewHolder(@NonNull View itemView, IOrderRecyclerView iOrderRecyclerView){
             super(itemView);
             restaurantIcon = itemView.findViewById(R.id.restaurant_icon);
-            restaurantName = itemView.findViewById(R.id.restaurant_name);
             orderDate = itemView.findViewById(R.id.order_date);
             orderTotalPrice = itemView.findViewById(R.id.order_total_price);
             orderNumber = itemView.findViewById(R.id.order_number);

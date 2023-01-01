@@ -30,17 +30,17 @@
                 android:layout_marginLeft="20sp"
                 android:layout_weight="30"
                 android:orientation="vertical"
+                android:paddingTop="5sp"
                 android:weightSum="70">
 
                 <TextView
-                    android:id="@+id/restaurant_name"
+                    android:id="@+id/order_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10sp"
                     android:layout_weight="10"
-                    android:fontFamily="@font/rubik_bold"
-                    android:text="@string/restaurant_name"
-                    android:textColor="@color/dark_red"
+                    android:fontFamily="@font/rubik_light"
+                    android:text="@string/order_number"
+                    android:textColor="@color/dark_red_light"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -53,16 +53,6 @@
                     android:text="@string/order_total_price"
                     android:textColor="@color/dark_red_light"
                     android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/order_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:fontFamily="@font/rubik_light"
-                    android:text="@string/order_number"
-                    android:textColor="@color/dark_red_light"
-                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/order_date"
