@@ -23,7 +23,6 @@ public class OrderRepo {
     private MutableLiveData<ArrayList<OrderModel>> previousOrdersLive = new MutableLiveData<>();
     private ArrayList<OrderModel> prevOrdersModels = new ArrayList<OrderModel>();
     private FirebaseAuth auth =  FirebaseAuth.getInstance();
-    String currentUser = auth.getCurrentUser().getUid();
     OrderModel orderModel = new OrderModel();
 
     public static OrderRepo getInstance(){
@@ -52,6 +51,7 @@ public class OrderRepo {
  * TODO: Fix if there are null values.
  * */
     private void loadOrder() {
+        String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query orderQuery = db.child("users").child(currentUser).child("order");
         orderQuery.addValueEventListener(new ValueEventListener() {
@@ -79,6 +79,7 @@ public class OrderRepo {
  * returns true if order is made successfully, otherwise false.
  * */
     private boolean pushOrder(OrderModel newOrder) {
+        String currentUser = auth.getCurrentUser().getUid();
         loadOrder();
         boolean orderStatus=canIMakeOrder();
         boolean orderMade=false;
@@ -121,6 +122,7 @@ public class OrderRepo {
  * Fetches all the previous orders.
  * */
     private void getAllPrevious(){
+        String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query orderQuery = db.child("users").child(currentUser).child("previousOrders");
         orderQuery.addValueEventListener(new ValueEventListener() {

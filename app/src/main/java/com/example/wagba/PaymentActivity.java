@@ -46,7 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Date date = new Date();
-                String orderID = "Order#"+ new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+                String orderID = "Order#"+ new SimpleDateFormat("mm-HH-dd-MM-yyyy").format(new Date());
                 OrderModel order = new OrderModel(
                         cart,
                         "Ain Shams University",

@@ -25,7 +25,7 @@ public class CartRepo {
     private MutableLiveData<CartModel> cart = new MutableLiveData<>();
     private ArrayList<DishModel> dishes = new ArrayList<>();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
-    String currentUser = auth.getCurrentUser().getUid();
+
     CartModel cartModel = new CartModel();
 
     public static CartRepo getInstance(){
@@ -65,6 +65,7 @@ public class CartRepo {
         deleteCart();
     }
     private void loadCart() {
+        String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query cartQuery  = db.child("users").child(currentUser).child("cart");
         cartQuery.addValueEventListener(new ValueEventListener() {
@@ -88,6 +89,7 @@ public class CartRepo {
         });
     }
     private void pushToCart(DishModel dish){
+        String currentUser = auth.getCurrentUser().getUid();
         try{
             DatabaseReference db = FirebaseDatabase.getInstance().getReference();
             DatabaseReference cartRef  = db.child("users").child(currentUser).child("cart").push();
@@ -98,6 +100,7 @@ public class CartRepo {
 
     }
     private void removeItem(String dishID){
+        String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         db.child("users").child(currentUser).child("cart").child(dishID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,6 +115,7 @@ public class CartRepo {
         });
     }
     private void deleteCart(){
+        String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         DatabaseReference cartRef  = db.child("users").child(currentUser).child("cart");
         cartRef.setValue(null);

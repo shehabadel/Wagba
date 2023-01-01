@@ -51,17 +51,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/previous_orders_txtView"
-        app:layout_constraintVertical_bias="0.254">
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/previous_orders_rcv"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="258dp"
+            android:paddingBottom="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.183"
             tools:listitem="@layout/previous_orders_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,10 +77,10 @@
         android:textColor="@color/dark_red_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/restaurants_list_wrapper"
-        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="@+id/restaurants_list_wrapper"
         app:layout_constraintTop_toBottomOf="@+id/restaurants_list_wrapper"
-        app:layout_constraintVertical_bias="0.002" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/restaurants_list_txtView"
