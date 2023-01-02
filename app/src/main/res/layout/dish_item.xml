@@ -95,6 +95,16 @@
                 app:rippleColor="@color/dark_red"
                 app:strokeColor="@color/black" />
 
+            <TextView
+                android:id="@+id/dish_availability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="availability"
+                app:layout_constraintBottom_toTopOf="@+id/add_to_cart_btn"
+                app:layout_constraintEnd_toEndOf="@+id/add_to_cart_btn"
+                app:layout_constraintStart_toStartOf="@+id/add_to_cart_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,10 +11,7 @@ import android.widget.Toast;
 
 import com.example.wagba.R;
 import com.example.wagba.ViewModels.CartViewModel;
-import com.example.wagba.ViewModels.UserViewModel;
 import com.example.wagba.models.DishModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -50,6 +47,15 @@ public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.
     public void onBindViewHolder(@NonNull DishRecViewHolder holder, int position) {
         holder.dishTitle.setText(dishModels.get(position).getDishName());
         holder.dishPrice.setText(Integer.toString(dishModels.get(position).getDishPrice()));
+        if(dishModels.get(position).isDishAvailability()){
+            holder.availability.setText("Available");
+        }else{
+            holder.availability.setText("Not Available");
+        }
+        /**
+         * Deactivate the add to cart button if not available
+         * */
+        holder.addToCart.setEnabled(dishModels.get(position).isDishAvailability());
         Picasso.get().load(dishModels.get(position).getDishImage()).into(holder.dishIcon);
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,12 +81,14 @@ public class DishRecViewAdapter extends RecyclerView.Adapter<DishRecViewAdapter.
         TextView dishTitle;
         TextView dishPrice;
         Button addToCart;
+        TextView availability;
         public DishRecViewHolder(@NonNull View itemView) {
             super(itemView);
             dishIcon = itemView.findViewById(R.id.dish_icon_1);
             dishTitle = itemView.findViewById(R.id.dish_title_1);
             dishPrice = itemView.findViewById(R.id.dish_price_1);
             addToCart = itemView.findViewById(R.id.add_to_cart_btn);
+            availability = itemView.findViewById(R.id.dish_availability);
         }
     }
 

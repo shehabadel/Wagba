@@ -30,10 +30,7 @@ public class RestaurantRepo {
    }
 
    public MutableLiveData<ArrayList<RestaurantModel>> getRestaurants(){
-
-       if(restaurantModels.size()==0){
-           loadRestaurants();
-       }
+        loadRestaurants();
        restaurant.setValue(restaurantModels);
         return restaurant;
    }
@@ -42,9 +39,13 @@ public class RestaurantRepo {
         DatabaseReference restaurantRef = FirebaseDatabase.getInstance().getReference();
 
         Query restaurantQuery = restaurantRef.child("restaurants");
-        restaurantQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        restaurantQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                /**
+                 * To avoid populating of duplicate data
+                 */
+                restaurantModels.clear();
                 try{
                     for (DataSnapshot snap : dataSnapshot.getChildren()) {
                         /**

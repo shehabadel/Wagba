@@ -3,12 +3,11 @@ package com.example.wagba.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.wagba.R;
-
 public class DishModel implements Parcelable {
     String dishID;
     String dishName;
     int dishPrice;
+    boolean dishAvailability;
     String dishImage;
     String restaurantName;
     public void setDishName(String dishName) {
@@ -23,7 +22,13 @@ public class DishModel implements Parcelable {
         this.dishImage = dishImage;
     }
 
+    public boolean isDishAvailability() {
+        return dishAvailability;
+    }
 
+    public void setDishAvailability(boolean dishAvailability) {
+        this.dishAvailability = dishAvailability;
+    }
 
     public DishModel(String dishID, String dishName, int dishPrice, String restaurantName, String dishImage) {
         this.dishID = dishID;
