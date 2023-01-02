@@ -1,15 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Container, Row, Col } from "reactstrap";
-import { doc, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import {
-  FirebaseAppProvider,
-  FirestoreProvider,
-  useFirestoreDocData,
-  useFirestore,
-  useFirebaseApp,
-} from "reactfire";
 import { db } from "./database/database";
 import { onValue, ref } from "firebase/database";
 import Order from "./components/Order";

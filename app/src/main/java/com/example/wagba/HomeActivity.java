@@ -75,4 +75,19 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         }
     }
+    @Override
+    public void onBackPressed() {
+        // Get the current fragment
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+        if (currentFragment instanceof HomeFragment) {
+            // If the current fragment is the HomeFragment, exit the app
+            super.onBackPressed();
+        } else {
+            // If the current fragment is not the HomeFragment, go back to the HomeFragment
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+        }
+    }
 }

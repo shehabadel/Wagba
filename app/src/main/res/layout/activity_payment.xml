@@ -60,6 +60,25 @@
                 android:text="Delivery Time"
                 android:textColor="@color/dark_red_light"
                 android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/locationRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/Radio12PM"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="12:00 PM" />
+
+                <RadioButton
+                    android:id="@+id/Radio3PM"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="3:00 PM" />
+            </RadioGroup>
         </LinearLayout>
 
         <TextView
@@ -165,15 +184,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@drawable/layout_border"
+            android:orientation="vertical"
+            android:padding="20px">
 
-            <TextView
-                android:id="@+id/delivery_address"
+
+            <RadioGroup
+                android:id="@+id/timeRadioGroup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/layout_border"
-                android:padding="20sp"
-                android:textSize="16sp" />
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/RadioGate3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gate 3" />
+
+                <RadioButton
+                    android:id="@+id/RadioGate4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Gate 4" />
+            </RadioGroup>
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -184,7 +217,7 @@
                 android:id="@+id/place_order_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="40dp"
                 android:text="Place Order"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
