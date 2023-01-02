@@ -100,20 +100,6 @@
                     android:textColor="@color/dark_red_light" />
 
                 <TextView
-                    android:id="@+id/delivery_fee_txtView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Delivery fee"
-                    android:textColor="@color/dark_red_light" />
-
-                <TextView
-                    android:id="@+id/service_fee_txtView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Service fee"
-                    android:textColor="@color/dark_red_light" />
-
-                <TextView
                     android:id="@+id/Total_txtView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,18 +120,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="basket_total"
-                    android:textColor="#636363" />
-
-                <TextView
-                    android:id="@+id/delivery_fee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#636363" />
-
-                <TextView
-                    android:id="@+id/service_fee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:textColor="#636363" />
 
                 <TextView

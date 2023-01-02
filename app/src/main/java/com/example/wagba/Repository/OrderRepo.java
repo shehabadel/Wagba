@@ -51,7 +51,9 @@ public class OrderRepo {
  * TODO: Fix if there are null values.
  * */
     private void loadOrder() {
+        try{
         String currentUser = auth.getCurrentUser().getUid();
+        Log.d("CurrentUser",currentUser);
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query orderQuery = db.child("users").child(currentUser).child("order");
         orderQuery.addValueEventListener(new ValueEventListener() {
@@ -73,6 +75,9 @@ public class OrderRepo {
 
             }
         });
+        }catch(Exception e){
+            Log.e("LoadOrder-UID",e.getMessage());
+        }
     }
 /**
  * Creates an order and pushes it to the order node of a user

@@ -32,7 +32,8 @@ public class OrderActivity extends AppCompatActivity {
         restaurantName.setText(order.getDeliveryAddress());
         orderNumber.setText(order.getOrderID().toString());
         orderDate.setText(order.getOrderDate());
-        orderTotalPrice.setText(Float.toString(order.getOrderTotalPrice()));
-        orderDetails.setText("A lot of stuff were bought yesterday. Lorem posum bolossum ");
+        orderTotalPrice.setText(Float.toString(order.getOrderTotalPrice())+" EGP");
+        orderDetails.setText(order.getOrderGate());
+        orderSummary.setText("Status: Completed");
     }
 }
