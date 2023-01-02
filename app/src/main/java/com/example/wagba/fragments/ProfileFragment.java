@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.wagba.LoginActivity;
 import com.example.wagba.R;
@@ -111,10 +112,17 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try{
-                loggedInUser.setName(editName.getText().toString());
-                loggedInUser.setYear(editYear.getText().toString());
-                loggedInUser.setDepartment(editDepartment.getText().toString());
-                userViewModel.update(loggedInUser);
+                    if(!editName.getText().toString().isEmpty()){
+                        loggedInUser.setName(editName.getText().toString());
+                    }
+                    if(!editYear.getText().toString().isEmpty()){
+                        loggedInUser.setYear(editYear.getText().toString());
+                    }
+                    if(!editDepartment.getText().toString().isEmpty()){
+                        loggedInUser.setDepartment(editDepartment.getText().toString());
+                    }
+                    userViewModel.update(loggedInUser);
+                    Toast.makeText(getContext(), "User updated successfully", Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
                     Log.d("ProfileFrag","Can't fetch Name, Year, or Department");
                 }
