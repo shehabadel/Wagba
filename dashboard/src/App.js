@@ -28,20 +28,22 @@ function App() {
       <Container className="mt-4">
         <Row>
           {usersOrders.length !== 0 ? (
-            usersOrders?.map((order) => (
-              <Col sm={6}>
-                <Order
-                  user={order?.user}
-                  deliveryAddress={order?.orderData?.deliveryAddress}
-                  orderDate={order?.orderData?.orderDate}
-                  orderItems={order?.orderData?.orderItems}
-                  orderStatus={order?.orderData?.orderStatus}
-                  orderGate={order?.orderData?.orderGate}
-                  orderTotalPrice={order?.orderData?.orderTotalPrice}
-                  orderID={order?.orderData?.orderID}
-                ></Order>
-              </Col>
-            ))
+            usersOrders?.map((order) => {
+              return (
+                <Col sm={6}>
+                  <Order
+                    user={order?.user}
+                    deliveryAddress={order?.orderData?.deliveryAddress}
+                    orderDate={order?.orderData?.orderDate}
+                    orderItems={order?.orderData?.orderItems}
+                    orderStatus={order?.orderData?.orderStatus}
+                    orderGate={order?.orderData?.orderGate}
+                    orderTotalPrice={order?.orderData?.orderTotalPrice}
+                    orderID={order?.orderData?.orderID}
+                  ></Order>
+                </Col>
+              );
+            })
           ) : (
             <h2>No orders at the moment!</h2>
           )}

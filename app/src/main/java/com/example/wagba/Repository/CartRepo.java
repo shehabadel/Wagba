@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class CartRepo {
     static CartRepo instance;
-    private MutableLiveData<CartModel> cart = new MutableLiveData<>();
+    private MutableLiveData<CartModel> cart;
     private ArrayList<DishModel> dishes = new ArrayList<>();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -35,6 +35,7 @@ public class CartRepo {
         return instance;
     }
     public MutableLiveData<CartModel> getCart(){
+        cart= new MutableLiveData<>();
         loadCart();
         cart.setValue(cartModel);
         return cart;

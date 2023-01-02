@@ -89,6 +89,25 @@ const Order = (props) => {
           <br></br>
         </div>
         <br></br>
+        <h6>Order Items:</h6>
+        {Object.entries(orderItems).map(([key, value]) => {
+          return (
+            <ul className="mt-2">
+              <li>Item Number: {key}</li>
+              <li>dishName: {value.dishName}</li>
+              <li>
+                dishImage:
+                <span>
+                  <img
+                    style={{ maxHeight: "20px" }}
+                    src={value.dishImage}
+                  ></img>
+                </span>
+              </li>
+              <li>dishPrice: {value.dishPrice}</li>
+            </ul>
+          );
+        })}
       </CardBody>
       <CardFooter>
         <h5>{orderStatus}</h5>

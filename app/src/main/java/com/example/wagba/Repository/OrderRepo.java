@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class OrderRepo {
     static OrderRepo instance;
-    private MutableLiveData<OrderModel> order = new MutableLiveData<>();
+    private MutableLiveData<OrderModel> order;
     private MutableLiveData<ArrayList<OrderModel>> previousOrdersLive = new MutableLiveData<>();
     private ArrayList<OrderModel> prevOrdersModels = new ArrayList<OrderModel>();
     private FirebaseAuth auth =  FirebaseAuth.getInstance();
@@ -33,6 +33,7 @@ public class OrderRepo {
     }
 
     public MutableLiveData<OrderModel> getOrder() {
+        order = new MutableLiveData<>();
         loadOrder();
         order.setValue(orderModel);
         return order;
