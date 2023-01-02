@@ -23,7 +23,7 @@ public class OrderRepo {
     private MutableLiveData<ArrayList<OrderModel>> previousOrdersLive = new MutableLiveData<>();
     private ArrayList<OrderModel> prevOrdersModels = new ArrayList<OrderModel>();
     private FirebaseAuth auth =  FirebaseAuth.getInstance();
-    OrderModel orderModel = new OrderModel();
+    OrderModel orderModel;
 
     public static OrderRepo getInstance(){
         if(instance==null){
@@ -34,6 +34,7 @@ public class OrderRepo {
 
     public MutableLiveData<OrderModel> getOrder() {
         order = new MutableLiveData<>();
+        orderModel=  new OrderModel();
         loadOrder();
         order.setValue(orderModel);
         return order;
