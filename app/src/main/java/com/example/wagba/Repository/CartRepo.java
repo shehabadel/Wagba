@@ -67,6 +67,7 @@ public class CartRepo {
     private void loadCart() {
         String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        try{
         Query cartQuery  = db.child("users").child(currentUser).child("cart");
         cartQuery.addValueEventListener(new ValueEventListener() {
             @Override
@@ -87,6 +88,9 @@ public class CartRepo {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        }catch(Exception e){
+            Log.e("loadCart",e.getMessage());
+        }
     }
     private void pushToCart(DishModel dish){
         String currentUser = auth.getCurrentUser().getUid();
@@ -102,6 +106,7 @@ public class CartRepo {
     private void removeItem(String dishID){
         String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        try{
         db.child("users").child(currentUser).child("cart").child(dishID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -113,11 +118,18 @@ public class CartRepo {
 
             }
         });
+        }catch(Exception e){
+            Log.e("RemoveItem",e.getMessage());
+        }
     }
     private void deleteCart(){
         String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        try{
         DatabaseReference cartRef  = db.child("users").child(currentUser).child("cart");
         cartRef.setValue(null);
+        }catch(Exception e){
+            Log.e("DeleteCart",e.getMessage());
+        }
     }
 }

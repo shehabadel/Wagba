@@ -68,6 +68,11 @@ public class PaymentActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "An order is created successfully!", Toast.LENGTH_SHORT).show();
                     cartViewModel.clearCart();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    /**
+                     * Go to the HomeActivity and prevent from
+                     * going back to the PaymentActivity
+                     */
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 }else{

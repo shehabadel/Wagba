@@ -129,6 +129,7 @@ public class OrderRepo {
     private void getAllPrevious(){
         String currentUser = auth.getCurrentUser().getUid();
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        try{
         Query orderQuery = db.child("users").child(currentUser).child("previousOrders");
         orderQuery.addValueEventListener(new ValueEventListener() {
             @Override
@@ -146,5 +147,8 @@ public class OrderRepo {
 
             }
         });
+        }catch(Exception e){
+            Log.e("getPrevOrders",e.getMessage());
+        }
     }
 }

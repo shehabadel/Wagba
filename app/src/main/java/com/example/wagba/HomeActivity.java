@@ -75,6 +75,10 @@ public class HomeActivity extends AppCompatActivity {
             finish();
         }
     }
+    /**
+     * Handles going back to the HomeFragment if we are in
+     * another Fragment, else exit the app
+     * */
     @Override
     public void onBackPressed() {
         // Get the current fragment
