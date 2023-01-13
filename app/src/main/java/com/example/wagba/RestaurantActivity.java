@@ -34,6 +34,7 @@ public class RestaurantActivity extends AppCompatActivity implements IDishRecycl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.restaurant);
         /**
          * Assigning the views

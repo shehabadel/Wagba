@@ -33,6 +33,7 @@ public class PaymentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_payment);
         basketTotal = findViewById(R.id.basket_total);
         total = findViewById(R.id.total);
@@ -41,7 +42,6 @@ public class PaymentActivity extends AppCompatActivity {
         Gate4=findViewById(R.id.RadioGate4);
         PM12=findViewById(R.id.Radio12PM);
         PM3=findViewById(R.id.Radio3PM);
-
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
 
