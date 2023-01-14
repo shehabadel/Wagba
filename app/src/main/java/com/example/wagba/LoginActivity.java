@@ -42,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.login);
+
         pwEditTxt = findViewById(R.id.pw_editTxt);
         emailEditTxt = findViewById(R.id.email_editTxt);
         goToSignUp=findViewById(R.id.SignUp_btn);

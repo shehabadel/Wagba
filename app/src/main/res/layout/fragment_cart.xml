@@ -28,7 +28,6 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
                 android:fontFamily="@font/rubik"
                 android:text="Basket"
                 android:textAlignment="center"
@@ -45,7 +44,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="234dp"
-            android:layout_marginTop="10sp"
             android:layout_marginBottom="10sp"
             android:background="@drawable/layout_border"
             android:padding="10sp"
